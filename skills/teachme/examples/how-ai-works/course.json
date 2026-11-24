@@ -1,0 +1,2668 @@
+{
+ "schemaVersion": 1,
+ "id": "how-ai-works",
+ "title": "How AI works",
+ "summary": "Three short lessons on what actually happens inside a chatbot: ==predicting the next token==, learning by guess-check-nudge, and why a helpful assistant still makes things up.",
+ "audience": "curious people with no technical background",
+ "level": "beginner",
+ "language": "en",
+ "mastery": 0.8,
+ "desiredRetention": 0.9,
+ "gaps": [
+  "Web pages were captured as excerpts and summaries through a fetch tool, not as full text; quotes were matched against those captures, so open the originals for full context.",
+  "Attention and the transformer's inner workings are only touched on; a follow-up module would need a primary source such as the original transformer paper.",
+  "Image and audio AI are out of scope; this course covers text language models only."
+ ],
+ "sources": [
+  {
+   "id": "src-3b1b",
+   "title": "Large Language Models explained briefly (3Blue1Brown), fetched excerpt",
+   "url": "https://www.3blue1brown.com/lessons/mini-llm",
+   "kind": "web",
+   "accessed": "2026-11-23",
+   "quotes": [
+    {
+     "id": "q-func",
+     "text": "a sophisticated mathematical function that predicts what word comes next for any piece of text"
+    },
+    {
+     "id": "q-prob",
+     "text": "assign a probability to all possible next words"
+    },
+    {
+     "id": "q-sample",
+     "text": "Because the model samples from these probabilities, the same prompt can produce different answers."
+    },
+    {
+     "id": "q-params",
+     "text": "many different continuous values, usually called parameters or weights"
+    },
+    {
+     "id": "q-billions",
+     "text": "Large models can have hundreds of billions of them. They start random and are refined during training."
+    },
+    {
+     "id": "q-backprop",
+     "text": "Backpropagation then adjusts the parameters so the true word becomes more likely and the others less likely."
+    },
+    {
+     "id": "q-years",
+     "text": "to read the text used to train GPT-3, \"they would need to read non-stop, 24-7, for over 2,600 years.\""
+    },
+    {
+     "id": "q-rlhf",
+     "text": "Workers flag \"unhelpful or problematic predictions,\" and their corrections further adjust the parameters toward responses users prefer."
+    }
+   ]
+  },
+  {
+   "id": "src-cset",
+   "title": "The surprising power of next word prediction (CSET, Georgetown), fetched summary",
+   "url": "https://cset.georgetown.edu/article/the-surprising-power-of-next-word-prediction-large-language-models-explained-part-1/",
+   "kind": "web",
+   "accessed": "2026-11-23",
+   "quotes": [
+    {
+     "id": "q-temp",
+     "text": "Lower values suit factual questions, while higher values produce more varied text."
+    },
+    {
+     "id": "q-repeat",
+     "text": "always choosing the single top word can make output repetitive"
+    },
+    {
+     "id": "q-guess",
+     "text": "The model guesses the next word, compares its guess to the actual word, and then updates its parameters."
+    },
+    {
+     "id": "q-selfsup",
+     "text": "Pre-training is self-supervised. The model is trained on large volumes of internet text, such as Wikipedia, books, and forum discussions, with no human labeling."
+    },
+    {
+     "id": "q-base",
+     "text": "A model that has only been pre-trained doesn't reliably follow instructions and can reproduce harmful content from its training data."
+    },
+    {
+     "id": "q-embed",
+     "text": "Embeddings start as random numbers and are refined during training."
+    }
+   ]
+  },
+  {
+   "id": "src-mslearn",
+   "title": "Large language models (Microsoft Learn), fetched passages",
+   "url": "https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/3-language-models",
+   "kind": "docs",
+   "accessed": "2026-11-23",
+   "quotes": [
+    {
+     "id": "q-predictive",
+     "text": "Think of them as being super-powerful examples of the predictive text feature on many cellphones."
+    },
+    {
+     "id": "q-tokens",
+     "text": "Tokens include words, but also sub-words (like the \"un\" in \"unbelievable\" and \"unlikely\"), punctuation, and other commonly used sequences of characters."
+    },
+    {
+     "id": "q-loop",
+     "text": "The predicted value is then added to the sequence, and the whole process repeats to predict the next token; and so on, until the decoder predicts that the sequence has ended."
+    },
+    {
+     "id": "q-dog",
+     "text": "predict that the next most probable token is \"puppy\" rather than, say, \"cat\" or \"skateboard\"."
+    }
+   ]
+  },
+  {
+   "id": "src-wiki",
+   "title": "Large language model (Wikipedia, CC BY-SA), fetched sentences",
+   "url": "https://en.wikipedia.org/wiki/Large_language_model",
+   "kind": "web",
+   "accessed": "2026-11-23",
+   "quotes": [
+    {
+     "id": "q-numbers",
+     "text": "As machine learning algorithms process numbers rather than text, the text must be converted to numbers."
+    },
+    {
+     "id": "q-float",
+     "text": "One float16 has 16 bits, or 2 bytes, and so one billion parameters require 2 gigabytes."
+    },
+    {
+     "id": "q-ift",
+     "text": "Instruction fine-tuning is a form of supervised learning used to teach LLMs to follow user instructions."
+    },
+    {
+     "id": "q-reward",
+     "text": "RLHF involves training a reward model to predict which text humans prefer."
+    },
+    {
+     "id": "q-rl",
+     "text": "Then, the LLM can be fine-tuned through reinforcement learning to better satisfy this reward model."
+    },
+    {
+     "id": "q-nexttok",
+     "text": "Before being fine-tuned, most LLMs are next-token predictors."
+    }
+   ]
+  },
+  {
+   "id": "src-openai",
+   "title": "Why language models hallucinate (OpenAI), fetched sentences",
+   "url": "https://openai.com/index/why-language-models-hallucinate/",
+   "kind": "web",
+   "accessed": "2026-11-23",
+   "quotes": [
+    {
+     "id": "q-def",
+     "text": "Hallucinations are plausible but false statements generated by language models."
+    },
+    {
+     "id": "q-positive",
+     "text": "The model sees only positive examples of fluent language and must approximate the overall distribution."
+    },
+    {
+     "id": "q-pet",
+     "text": "But arbitrary low-frequency facts, like a pet's birthday, cannot be predicted from patterns alone"
+    },
+    {
+     "id": "q-incent",
+     "text": "Hallucinations persist partly because current evaluation methods set the wrong incentives."
+    },
+    {
+     "id": "q-accuracy",
+     "text": "when models are graded only on accuracy, the percentage of questions they get exactly right, they are encouraged to guess rather than say \"I don't know.\""
+    },
+    {
+     "id": "q-score",
+     "text": "If the main scoreboards keep rewarding lucky guesses, models will keep learning to guess."
+    }
+   ]
+  }
+ ],
+ "conceptMap": {
+  "nodes": [
+   {
+    "id": "tokens",
+    "label": "Tokens",
+    "lesson": "next-word"
+   },
+   {
+    "id": "predict",
+    "label": "Next-word\nprediction",
+    "lesson": "next-word"
+   },
+   {
+    "id": "temp",
+    "label": "Sampling &\ntemperature",
+    "lesson": "next-word"
+   },
+   {
+    "id": "params",
+    "label": "Parameters",
+    "lesson": "how-models-learn"
+   },
+   {
+    "id": "train",
+    "label": "Guess, check,\nnudge",
+    "lesson": "how-models-learn"
+   },
+   {
+    "id": "pretrain",
+    "label": "Pretraining",
+    "lesson": "how-models-learn"
+   },
+   {
+    "id": "ft",
+    "label": "Fine-tuning\n& RLHF",
+    "lesson": "assistant-and-hallucination"
+   },
+   {
+    "id": "hall",
+    "label": "Hallucination",
+    "lesson": "assistant-and-hallucination"
+   }
+  ],
+  "edges": [
+   [
+    "tokens",
+    "predict"
+   ],
+   [
+    "predict",
+    "temp"
+   ],
+   [
+    "predict",
+    "train"
+   ],
+   [
+    "params",
+    "train"
+   ],
+   [
+    "train",
+    "pretrain"
+   ],
+   [
+    "pretrain",
+    "ft"
+   ],
+   [
+    "pretrain",
+    "hall"
+   ],
+   [
+    "ft",
+    "hall"
+   ]
+  ]
+ },
+ "modules": [
+  {
+   "id": "m1",
+   "title": "Inside a chatbot",
+   "lessons": [
+    "next-word",
+    "how-models-learn",
+    "assistant-and-hallucination"
+   ]
+  }
+ ],
+ "lessons": [
+  {
+   "id": "next-word",
+   "title": "How a chatbot writes: one token at a time",
+   "minutes": 19,
+   "summary": "A language model is a next-word predictor. It turns text into tokens, scores every possible next token, picks one, adds it and repeats.",
+   "prerequisites": [],
+   "misconceptions": [
+    "The chatbot plans its whole answer before writing it",
+    "It looks answers up in a database",
+    "It reads whole words like people do"
+   ],
+   "objectives": [
+    {
+     "id": "o1",
+     "verb": "understand",
+     "text": "Explain that a language model writes by repeatedly predicting the next token"
+    },
+    {
+     "id": "o2",
+     "verb": "remember",
+     "text": "Say what a token is and why text becomes numbers"
+    },
+    {
+     "id": "o3",
+     "verb": "apply",
+     "text": "Predict how temperature changes which word gets picked"
+    }
+   ],
+   "claims": [
+    {
+     "id": "c1",
+     "text": "A large language model is a mathematical function that predicts what word comes next for any piece of text.",
+     "kind": "definition",
+     "support": [
+      {
+       "sourceId": "src-3b1b",
+       "quoteId": "q-func"
+      }
+     ]
+    },
+    {
+     "id": "c2",
+     "text": "Instead of one answer, it assigns a probability to every possible next word.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-3b1b",
+       "quoteId": "q-prob"
+      }
+     ]
+    },
+    {
+     "id": "c3",
+     "text": "Because the model samples from these probabilities, the same prompt can give different answers.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-3b1b",
+       "quoteId": "q-sample"
+      }
+     ]
+    },
+    {
+     "id": "c4",
+     "text": "Tokens are words, pieces of words like \"un\", punctuation and other common character sequences.",
+     "kind": "definition",
+     "support": [
+      {
+       "sourceId": "src-mslearn",
+       "quoteId": "q-tokens"
+      }
+     ]
+    },
+    {
+     "id": "c5",
+     "text": "Machine learning works on numbers, so text must be converted to numbers.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-wiki",
+       "quoteId": "q-numbers"
+      }
+     ]
+    },
+    {
+     "id": "c6",
+     "text": "The predicted token is added to the text and the process repeats until the model predicts the end.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-mslearn",
+       "quoteId": "q-loop"
+      }
+     ]
+    },
+    {
+     "id": "c7",
+     "text": "Lower temperature suits factual questions; higher temperature gives more varied text.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-cset",
+       "quoteId": "q-temp"
+      }
+     ]
+    },
+    {
+     "id": "c8",
+     "text": "Always taking the single top word can make output repetitive.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-cset",
+       "quoteId": "q-repeat"
+      }
+     ]
+    },
+    {
+     "id": "c9",
+     "text": "Given \"When my dog was a ...\", the most probable next token is \"puppy\" rather than \"cat\" or \"skateboard\".",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-mslearn",
+       "quoteId": "q-dog"
+      }
+     ]
+    },
+    {
+     "id": "c10",
+     "text": "Language models are like a super-powerful version of phone predictive text.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-mslearn",
+       "quoteId": "q-predictive"
+      }
+     ]
+    },
+    {
+     "id": "c11",
+     "text": "Illustrative toy example: two candidate words with made-up scores of 2 and 1.",
+     "kind": "illustrative"
+    },
+    {
+     "id": "c12",
+     "text": "Before fine-tuning, most language models are next-token predictors.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-wiki",
+       "quoteId": "q-nexttok"
+      }
+     ]
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "phase": "hook",
+     "title": "Finish this sentence",
+     "seconds": 60,
+     "body": [
+      "You read \"When my dog was a ...\" and a word jumps into your head before you decide anything.",
+      "A chatbot answers questions in a blink. Make a guess before we open it up: does it plan its whole reply first, or do something much simpler?"
+     ],
+     "scene": {
+      "caption": "Your brain already guessed the next word. Hold that thought.",
+      "alt": "A sentence fragment and a question mark for the missing word",
+      "nodes": [
+       {
+        "id": "prompt",
+        "label": "\"When my dog\nwas a ...\"",
+        "x": 8,
+        "y": 50,
+        "shape": "box",
+        "tone": "muted"
+       },
+       {
+        "id": "you",
+        "label": "Your guess:\n?",
+        "x": 70,
+        "y": 50,
+        "shape": "circle",
+        "tone": "accent"
+       }
+      ],
+      "edges": [
+       {
+        "from": "prompt",
+        "to": "you",
+        "flow": true
+       }
+      ]
+     }
+    },
+    {
+     "id": "s2",
+     "phase": "activate",
+     "title": "Quick guess",
+     "seconds": 90,
+     "body": [
+      "Two questions before the explanation. Guessing is the point."
+     ],
+     "quiz": [
+      "nw-q1",
+      "nw-q2"
+     ]
+    },
+    {
+     "id": "s3",
+     "phase": "explain",
+     "title": "It is a next-word predictor",
+     "seconds": 110,
+     "body": [
+      "At its core, a language model is a ==function that predicts what comes next== for any piece of text.",
+      "It does not commit to one word. It gives every possible next word a probability. For \"When my dog was a ...\", \"puppy\" scores far higher than \"cat\" or \"skateboard\".",
+      "Think of the predictive text on your phone, made enormously more powerful."
+     ],
+     "claims": [
+      "c1",
+      "c2",
+      "c9",
+      "c10",
+      "c12"
+     ],
+     "scene": {
+      "caption": "Text goes in; a probability for every candidate word comes out.",
+      "alt": "Prompt flows into the model, which scores puppy highest, then cat and skateboard",
+      "nodes": [
+       {
+        "id": "prompt",
+        "label": "\"When my dog\nwas a ...\"",
+        "x": 8,
+        "y": 50,
+        "shape": "box",
+        "tone": "muted"
+       },
+       {
+        "id": "model",
+        "label": "Language\nmodel",
+        "x": 45,
+        "y": 50,
+        "shape": "box"
+       },
+       {
+        "id": "w1",
+        "label": "puppy",
+        "x": 88,
+        "y": 22,
+        "shape": "pill",
+        "tone": "accent"
+       },
+       {
+        "id": "w2",
+        "label": "cat",
+        "x": 88,
+        "y": 50,
+        "shape": "pill",
+        "tone": "muted"
+       },
+       {
+        "id": "w3",
+        "label": "skateboard",
+        "x": 88,
+        "y": 78,
+        "shape": "pill",
+        "tone": "muted"
+       }
+      ],
+      "edges": [
+       {
+        "from": "prompt",
+        "to": "model",
+        "flow": true
+       },
+       {
+        "from": "model",
+        "to": "w1",
+        "label": "most likely"
+       },
+       {
+        "from": "model",
+        "to": "w2"
+       },
+       {
+        "from": "model",
+        "to": "w3"
+       }
+      ]
+     }
+    },
+    {
+     "id": "s4",
+     "phase": "explain",
+     "title": "Words become tokens, tokens become numbers",
+     "seconds": 100,
+     "body": [
+      "The model never sees words the way you do. Text is first cut into ==tokens==: whole words, pieces of words such as \"un\", and punctuation.",
+      "Machine learning only works on numbers, so each token is turned into numbers before the model can use it."
+     ],
+     "claims": [
+      "c4",
+      "c5"
+     ],
+     "scene": {
+      "caption": "\"unbelievable\" is split into smaller pieces, and each piece becomes numbers.",
+      "alt": "The word unbelievable splits into tokens that become lists of numbers before entering the model",
+      "nodes": [
+       {
+        "id": "prompt",
+        "label": "\"unbelievable\"",
+        "x": 6,
+        "y": 50,
+        "shape": "box",
+        "tone": "muted"
+       },
+       {
+        "id": "t1",
+        "label": "un",
+        "x": 30,
+        "y": 22,
+        "shape": "pill",
+        "tone": "accent"
+       },
+       {
+        "id": "t2",
+        "label": "believ",
+        "x": 30,
+        "y": 50,
+        "shape": "pill",
+        "tone": "accent"
+       },
+       {
+        "id": "t3",
+        "label": "able",
+        "x": 30,
+        "y": 78,
+        "shape": "pill",
+        "tone": "accent"
+       },
+       {
+        "id": "nums",
+        "label": "numbers",
+        "x": 58,
+        "y": 50,
+        "shape": "cylinder",
+        "tone": "main"
+       },
+       {
+        "id": "model",
+        "label": "Language\nmodel",
+        "x": 88,
+        "y": 50,
+        "shape": "box"
+       }
+      ],
+      "edges": [
+       {
+        "from": "prompt",
+        "to": "t1"
+       },
+       {
+        "from": "prompt",
+        "to": "t2"
+       },
+       {
+        "from": "prompt",
+        "to": "t3"
+       },
+       {
+        "from": "t1",
+        "to": "nums"
+       },
+       {
+        "from": "t2",
+        "to": "nums"
+       },
+       {
+        "from": "t3",
+        "to": "nums"
+       },
+       {
+        "from": "nums",
+        "to": "model",
+        "flow": true
+       }
+      ]
+     }
+    },
+    {
+     "id": "s5",
+     "phase": "explain",
+     "title": "Pick a token, add it, repeat",
+     "seconds": 100,
+     "body": [
+      "Writing a reply is a loop. The model predicts the next token, ==adds it to the text==, and runs again on the longer text, until it predicts the end.",
+      "Because it samples from the probabilities instead of always taking the top word, the same prompt can give different answers."
+     ],
+     "claims": [
+      "c6",
+      "c3"
+     ],
+     "scene": {
+      "caption": "Each new token is fed back in. A whole reply is many single predictions in a row.",
+      "alt": "Loop: text into model, model picks a token, token is appended to the text",
+      "nodes": [
+       {
+        "id": "prompt",
+        "label": "\"When my dog\nwas a ...\"",
+        "x": 8,
+        "y": 30,
+        "shape": "box",
+        "tone": "muted"
+       },
+       {
+        "id": "model",
+        "label": "Language\nmodel",
+        "x": 45,
+        "y": 30,
+        "shape": "box"
+       },
+       {
+        "id": "w1",
+        "label": "puppy",
+        "x": 85,
+        "y": 30,
+        "shape": "pill",
+        "tone": "accent"
+       },
+       {
+        "id": "append",
+        "label": "\"...was a puppy\"",
+        "x": 45,
+        "y": 82,
+        "shape": "box",
+        "tone": "ok"
+       }
+      ],
+      "edges": [
+       {
+        "from": "prompt",
+        "to": "model",
+        "flow": true
+       },
+       {
+        "from": "model",
+        "to": "w1",
+        "label": "pick"
+       },
+       {
+        "from": "w1",
+        "to": "append",
+        "label": "add"
+       },
+       {
+        "from": "append",
+        "to": "model",
+        "label": "run again",
+        "flow": true
+       }
+      ]
+     }
+    },
+    {
+     "id": "s6",
+     "phase": "worked_example",
+     "title": "Watch one word get written",
+     "seconds": 150,
+     "body": [
+      "Here is the loop for a single word, step by step."
+     ],
+     "claims": [
+      "c6",
+      "c9"
+     ],
+     "workedExample": {
+      "problem": "Continue the text \"When my dog was a ...\"",
+      "steps": [
+       {
+        "subgoal": "Read the context",
+        "text": "Turn the text so far into tokens, then into numbers.",
+        "faded": false
+       },
+       {
+        "subgoal": "Score every candidate",
+        "text": "Give each possible next token a probability: \"puppy\" high, \"cat\" and \"skateboard\" low.",
+        "faded": false
+       },
+       {
+        "subgoal": "Pick one",
+        "text": "Sample a token from those probabilities; here it lands on \"puppy\".",
+        "faded": false
+       },
+       {
+        "subgoal": "Add it and repeat",
+        "text": "Append \"puppy\" to the text and run the whole process again for the next token.",
+        "faded": false
+       }
+      ],
+      "selfExplainPrompt": "Why does the model need to run again after adding \"puppy\", instead of writing the full sentence at once?"
+     }
+    },
+    {
+     "id": "s7",
+     "phase": "guided_practice",
+     "title": "Turn the temperature dial",
+     "seconds": 180,
+     "body": [
+      "Here the model must choose between two candidate words. The scores are toy numbers, made up to show the idea.",
+      "==Temperature== controls how strongly the model favours the top word. Predict first, then move the slider."
+     ],
+     "claims": [
+      "c7",
+      "c8",
+      "c11"
+     ],
+     "simulation": {
+      "constants": {
+       "sa": 2,
+       "sb": 1
+      },
+      "params": [
+       {
+        "id": "temp",
+        "label": "Temperature",
+        "min": 0.1,
+        "max": 3,
+        "step": 0.1,
+        "default": 1
+       }
+      ],
+      "outputs": [
+       {
+        "id": "pa",
+        "label": "Chance of the top word",
+        "expr": "100*exp(sa/temp)/(exp(sa/temp)+exp(sb/temp))",
+        "decimals": 0,
+        "unit": "%"
+       },
+       {
+        "id": "pb",
+        "label": "Chance of the other word",
+        "expr": "100*exp(sb/temp)/(exp(sa/temp)+exp(sb/temp))",
+        "decimals": 0,
+        "unit": "%"
+       }
+      ],
+      "chart": {
+       "x": "temp",
+       "y": [
+        "pa",
+        "pb"
+       ]
+      },
+      "predict": {
+       "prompt": "If you raise the temperature, what happens to the top word's chance of being picked?",
+       "options": [
+        "It goes up",
+        "It goes down, closer to an even split",
+        "It stays the same"
+       ],
+       "answer": 1,
+       "explanation": "Higher temperature flattens the probabilities, so less likely words get picked more often: more varied, less predictable text."
+      },
+      "note": "Low temperature suits factual answers; higher temperature gives more varied text, and always taking the top word can get repetitive."
+     }
+    },
+    {
+     "id": "s8",
+     "phase": "retrieval",
+     "title": "Recall it",
+     "seconds": 200,
+     "body": [
+      "No scrolling back. Answer from memory; that effort is what makes it stick."
+     ],
+     "quiz": [
+      "nw-q3",
+      "nw-q4",
+      "nw-q5",
+      "nw-q6"
+     ]
+    },
+    {
+     "id": "s9",
+     "phase": "teachback",
+     "title": "Explain it back",
+     "seconds": 150,
+     "body": [
+      "Teaching it is the best test of whether you have it."
+     ],
+     "teachback": {
+      "prompt": "A friend asks: \"How does a chatbot come up with its reply?\" Explain it in three or four sentences.",
+      "modelAnswer": [
+       "It predicts one token at a time. The text is cut into tokens and turned into numbers, the model gives every possible next token a probability, picks one, adds it to the text and repeats until it predicts the end. Because it samples, the same question can get different answers; temperature controls how adventurous the picks are."
+      ],
+      "rubric": [
+       "Says it predicts the next token, one at a time",
+       "Mentions probabilities for every candidate",
+       "Describes the add-and-repeat loop",
+       "Explains why answers can differ (sampling or temperature)"
+      ]
+     }
+    },
+    {
+     "id": "s10",
+     "phase": "review",
+     "title": "Into your review deck",
+     "seconds": 45,
+     "body": [
+      "These cards come back just before you would forget them."
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": "nw-q1",
+     "type": "mcq",
+     "objective": "o1",
+     "prompt": "How does a chatbot produce its reply?",
+     "options": [
+      "It plans the whole answer, then types it out",
+      "It predicts one token at a time, adding each to the text",
+      "It finds a stored answer that matches your question"
+     ],
+     "answer": 1,
+     "explanation": "It is a next-token predictor: each token is predicted from the text so far, then added, and the loop repeats. No plan or stored answer is retrieved."
+    },
+    {
+     "id": "nw-q2",
+     "type": "mcq",
+     "objective": "o2",
+     "prompt": "What does the model actually read?",
+     "options": [
+      "Whole words, like people",
+      "Tokens turned into numbers",
+      "Letters one at a time, always"
+     ],
+     "answer": 1,
+     "explanation": "Text is split into tokens (words, word pieces, punctuation), and each token is turned into numbers."
+    },
+    {
+     "id": "nw-q3",
+     "type": "order",
+     "objective": "o1",
+     "prompt": "Put one turn of the writing loop in order.",
+     "items": [
+      "Turn the text into tokens and numbers",
+      "Give every possible next token a probability",
+      "Pick a token",
+      "Add it to the text and run again"
+     ],
+     "explanation": "Read, score, pick, append, repeat. A reply is many of these turns."
+    },
+    {
+     "id": "nw-q4",
+     "type": "cloze",
+     "objective": "o2",
+     "prompt": "Before the model sees text, it is cut into small pieces called ______.",
+     "accept": [
+      "tokens",
+      "token"
+     ],
+     "explanation": "Tokens can be whole words, pieces like \"un\", or punctuation."
+    },
+    {
+     "id": "nw-q5",
+     "type": "mcq",
+     "objective": "o3",
+     "prompt": "You want a precise factual answer. Which temperature fits better?",
+     "options": [
+      "Lower",
+      "Higher",
+      "It makes no difference"
+     ],
+     "answer": 0,
+     "explanation": "Low temperature sticks to the most likely tokens, which suits factual questions. High temperature gives more varied text."
+    },
+    {
+     "id": "nw-q6",
+     "type": "recall",
+     "objective": "o3",
+     "prompt": "Why can the same prompt give a different answer each time?",
+     "answer": "The model samples from its probabilities instead of always taking the top token, so a less likely token is sometimes picked and the text goes a different way. Higher temperature makes this more likely."
+    }
+   ],
+   "flashcards": [
+    {
+     "id": "nw-f1",
+     "front": "What does a language model do at its core?",
+     "back": "Predicts the next token for any text, as probabilities",
+     "objective": "o1"
+    },
+    {
+     "id": "nw-f2",
+     "front": "What is a token?",
+     "back": "A word, word piece (like \"un\") or punctuation mark",
+     "objective": "o2"
+    },
+    {
+     "id": "nw-f3",
+     "front": "Why must text become numbers?",
+     "back": "Machine learning only works on numbers",
+     "objective": "o2"
+    },
+    {
+     "id": "nw-f4",
+     "front": "How is a full reply written?",
+     "back": "Predict a token, add it, run again until the end",
+     "objective": "o1"
+    },
+    {
+     "id": "nw-f5",
+     "front": "What does raising temperature do?",
+     "back": "Flattens probabilities: more varied, less predictable picks",
+     "objective": "o3"
+    }
+   ]
+  },
+  {
+   "id": "how-models-learn",
+   "title": "How a model learns: guess, check, nudge",
+   "minutes": 19,
+   "summary": "Nobody writes the rules. Training starts from random dials and nudges them, billions of times, until the true next word becomes more likely.",
+   "prerequisites": [
+    "next-word"
+   ],
+   "misconceptions": [
+    "Engineers program the rules or facts in by hand",
+    "Pretraining needs people to label every example",
+    "The model stores a copy of the text it read"
+   ],
+   "objectives": [
+    {
+     "id": "o1",
+     "verb": "understand",
+     "text": "Describe training as guess, check against the real next word, and adjust"
+    },
+    {
+     "id": "o2",
+     "verb": "remember",
+     "text": "Say what parameters are and how they start"
+    },
+    {
+     "id": "o3",
+     "verb": "understand",
+     "text": "Explain why pretraining needs no human labels"
+    }
+   ],
+   "claims": [
+    {
+     "id": "c1",
+     "text": "A model's behaviour is set by many continuous values called parameters or weights.",
+     "kind": "definition",
+     "support": [
+      {
+       "sourceId": "src-3b1b",
+       "quoteId": "q-params"
+      }
+     ]
+    },
+    {
+     "id": "c2",
+     "text": "Large models can have hundreds of billions of parameters; they start random and are refined during training.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-3b1b",
+       "quoteId": "q-billions"
+      }
+     ]
+    },
+    {
+     "id": "c3",
+     "text": "In training the model guesses the next word, compares its guess with the actual word, and updates its parameters.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-cset",
+       "quoteId": "q-guess"
+      }
+     ]
+    },
+    {
+     "id": "c4",
+     "text": "Backpropagation adjusts the parameters so the true word becomes more likely and the others less likely.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-3b1b",
+       "quoteId": "q-backprop"
+      }
+     ]
+    },
+    {
+     "id": "c5",
+     "text": "Pretraining is self-supervised: it uses large volumes of internet text such as Wikipedia, books and forums, with no human labelling.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-cset",
+       "quoteId": "q-selfsup"
+      }
+     ]
+    },
+    {
+     "id": "c6",
+     "text": "A person reading the text used to train GPT-3 non-stop would need over 2,600 years.",
+     "kind": "number",
+     "support": [
+      {
+       "sourceId": "src-3b1b",
+       "quoteId": "q-years"
+      }
+     ]
+    },
+    {
+     "id": "c7",
+     "text": "At 16 bits, or 2 bytes, per parameter, one billion parameters need 2 gigabytes.",
+     "kind": "number",
+     "support": [
+      {
+       "sourceId": "src-wiki",
+       "quoteId": "q-float"
+      }
+     ]
+    },
+    {
+     "id": "c8",
+     "text": "Illustrative toy example: one weight, an input of 2 and a correct output of 6, so the best weight is 3.",
+     "kind": "illustrative"
+    },
+    {
+     "id": "c9",
+     "text": "The number lists that represent tokens also start random and are refined during training.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-cset",
+       "quoteId": "q-embed"
+      }
+     ]
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "phase": "hook",
+     "title": "Who wrote the rules?",
+     "seconds": 60,
+     "body": [
+      "Nobody typed grammar rules or facts into a chatbot. Inside there are only numbers.",
+      "So where does its skill come from? Guess before reading on."
+     ],
+     "scene": {
+      "caption": "A model is a huge board of adjustable dials. Who sets them?",
+      "alt": "A grid of dials with a question mark",
+      "nodes": [
+       {
+        "id": "d0",
+        "label": "dial",
+        "x": 30,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d1",
+        "label": "dial",
+        "x": 44,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d2",
+        "label": "dial",
+        "x": 58,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d3",
+        "label": "dial",
+        "x": 30,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d4",
+        "label": "dial",
+        "x": 44,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d5",
+        "label": "dial",
+        "x": 58,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d6",
+        "label": "dial",
+        "x": 30,
+        "y": 75,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d7",
+        "label": "dial",
+        "x": 44,
+        "y": 75,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d8",
+        "label": "dial",
+        "x": 58,
+        "y": 75,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "who",
+        "label": "Who sets\nthese?",
+        "x": 88,
+        "y": 50,
+        "shape": "diamond",
+        "tone": "accent"
+       }
+      ],
+      "edges": [
+       {
+        "from": "who",
+        "to": "d5",
+        "dashed": true
+       }
+      ]
+     }
+    },
+    {
+     "id": "s2",
+     "phase": "activate",
+     "title": "Quick guess",
+     "seconds": 80,
+     "body": [
+      "Guess first. Being wrong now helps later."
+     ],
+     "quiz": [
+      "ml-q1",
+      "ml-q2"
+     ]
+    },
+    {
+     "id": "s3",
+     "phase": "explain",
+     "title": "Parameters: the model's dials",
+     "seconds": 100,
+     "body": [
+      "Everything a model does is set by a vast number of adjustable values called ==parameters== (or weights). Large models have hundreds of billions of them.",
+      "They start out random. A brand-new model is gibberish; training is what tunes the dials."
+     ],
+     "claims": [
+      "c1",
+      "c2"
+     ],
+     "scene": {
+      "caption": "Each dial is one parameter. Real models have hundreds of billions.",
+      "alt": "Grid of dials inside a model box",
+      "groups": [
+       {
+        "id": "g",
+        "label": "The model",
+        "x": 22,
+        "y": 8,
+        "w": 44,
+        "h": 84,
+        "tone": "main"
+       }
+      ],
+      "nodes": [
+       {
+        "id": "d0",
+        "label": "dial",
+        "x": 30,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d1",
+        "label": "dial",
+        "x": 44,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d2",
+        "label": "dial",
+        "x": 58,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d3",
+        "label": "dial",
+        "x": 30,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d4",
+        "label": "dial",
+        "x": 44,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d5",
+        "label": "dial",
+        "x": 58,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d6",
+        "label": "dial",
+        "x": 30,
+        "y": 75,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d7",
+        "label": "dial",
+        "x": 44,
+        "y": 75,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d8",
+        "label": "dial",
+        "x": 58,
+        "y": 75,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "rand",
+        "label": "start:\nrandom",
+        "x": 88,
+        "y": 50,
+        "shape": "pill",
+        "tone": "warn"
+       }
+      ],
+      "edges": [
+       {
+        "from": "rand",
+        "to": "d5",
+        "dashed": true
+       }
+      ]
+     }
+    },
+    {
+     "id": "s4",
+     "phase": "explain",
+     "title": "Guess, check, nudge",
+     "seconds": 110,
+     "body": [
+      "Training is a loop. Show the model some text, let it ==guess the next word==, compare the guess with the word that really came next, then adjust the parameters.",
+      "The adjustment, called backpropagation, nudges every dial so the true word becomes a bit more likely and the wrong ones a bit less. Repeat across a vast amount of text."
+     ],
+     "claims": [
+      "c3",
+      "c4"
+     ],
+     "scene": {
+      "caption": "One training step: guess, compare with the real word, nudge the dials.",
+      "alt": "Loop from text to model guess, compare with real next word, then update parameters",
+      "groups": [
+       {
+        "id": "g",
+        "label": "The model",
+        "x": 22,
+        "y": 8,
+        "w": 44,
+        "h": 84,
+        "tone": "main"
+       }
+      ],
+      "nodes": [
+       {
+        "id": "d0",
+        "label": "dial",
+        "x": 30,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d1",
+        "label": "dial",
+        "x": 44,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d2",
+        "label": "dial",
+        "x": 58,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d3",
+        "label": "dial",
+        "x": 30,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d4",
+        "label": "dial",
+        "x": 44,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d5",
+        "label": "dial",
+        "x": 58,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "guess",
+        "label": "Guess:\n\"rug\"",
+        "x": 88,
+        "y": 22,
+        "shape": "pill",
+        "tone": "warn"
+       },
+       {
+        "id": "truth",
+        "label": "Real word:\n\"mat\"",
+        "x": 88,
+        "y": 78,
+        "shape": "pill",
+        "tone": "ok"
+       },
+       {
+        "id": "nudge",
+        "label": "nudge\ndials",
+        "x": 44,
+        "y": 88,
+        "shape": "pill",
+        "tone": "accent"
+       }
+      ],
+      "edges": [
+       {
+        "from": "d2",
+        "to": "guess",
+        "flow": true
+       },
+       {
+        "from": "guess",
+        "to": "truth",
+        "label": "compare"
+       },
+       {
+        "from": "truth",
+        "to": "nudge",
+        "curve": true
+       },
+       {
+        "from": "nudge",
+        "to": "d4",
+        "flow": true
+       }
+      ]
+     }
+    },
+    {
+     "id": "s5",
+     "phase": "explain",
+     "title": "Free practice from all the text",
+     "seconds": 100,
+     "body": [
+      "Where do the right answers come from? From the text itself. The next word is always already there, so ==no human has to label anything==. This is called self-supervised pretraining, on internet text such as Wikipedia, books and forums.",
+      "The scale is huge: reading the training text of GPT-3 non-stop would take a person over 2,600 years."
+     ],
+     "claims": [
+      "c5",
+      "c6"
+     ],
+     "scene": {
+      "caption": "Every sentence is a free quiz: hide the next word, then check the guess.",
+      "alt": "Books, Wikipedia and forums flow into the training loop with no human labeller",
+      "groups": [
+       {
+        "id": "g",
+        "label": "The model",
+        "x": 22,
+        "y": 8,
+        "w": 44,
+        "h": 84,
+        "tone": "main"
+       }
+      ],
+      "nodes": [
+       {
+        "id": "d0",
+        "label": "dial",
+        "x": 30,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d1",
+        "label": "dial",
+        "x": 44,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d2",
+        "label": "dial",
+        "x": 58,
+        "y": 25,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d3",
+        "label": "dial",
+        "x": 30,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d4",
+        "label": "dial",
+        "x": 44,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "d5",
+        "label": "dial",
+        "x": 58,
+        "y": 50,
+        "shape": "circle",
+        "tone": "muted"
+       },
+       {
+        "id": "text",
+        "label": "Books, Wikipedia,\nforums",
+        "x": 6,
+        "y": 50,
+        "shape": "cylinder",
+        "tone": "main"
+       },
+       {
+        "id": "truth",
+        "label": "Real word:\n\"mat\"",
+        "x": 88,
+        "y": 78,
+        "shape": "pill",
+        "tone": "ok"
+       },
+       {
+        "id": "human",
+        "label": "No human\nlabeller",
+        "x": 88,
+        "y": 22,
+        "shape": "pill",
+        "tone": "muted"
+       }
+      ],
+      "edges": [
+       {
+        "from": "text",
+        "to": "d0",
+        "flow": true
+       },
+       {
+        "from": "text",
+        "to": "truth",
+        "curve": true,
+        "label": "answer is in the text"
+       }
+      ]
+     }
+    },
+    {
+     "id": "s6",
+     "phase": "worked_example",
+     "title": "One training step, worked through",
+     "seconds": 150,
+     "body": [
+      "Follow a single example through the loop."
+     ],
+     "claims": [
+      "c3",
+      "c4"
+     ],
+     "workedExample": {
+      "problem": "Train on the sentence \"The cat sat on the mat\".",
+      "steps": [
+       {
+        "subgoal": "Hide the answer",
+        "text": "Show the model \"The cat sat on the\" and hide \"mat\".",
+        "faded": false
+       },
+       {
+        "subgoal": "Let it guess",
+        "text": "The model gives each possible word a probability; say it favours \"rug\".",
+        "faded": false
+       },
+       {
+        "subgoal": "Compare",
+        "text": "The real next word is \"mat\", so the guess was off.",
+        "faded": false
+       },
+       {
+        "subgoal": "Nudge the dials",
+        "text": "Backpropagation adjusts the parameters so \"mat\" gets more likely and \"rug\" less likely in this context.",
+        "faded": false
+       }
+      ],
+      "selfExplainPrompt": "Why is it fine that the model guessed wrong here? What would happen if it never guessed wrong?"
+     }
+    },
+    {
+     "id": "s7",
+     "phase": "guided_practice",
+     "title": "Tune one dial yourself",
+     "seconds": 180,
+     "body": [
+      "A toy model with a single dial. It multiplies the input by the dial's value. The input and the correct output are made-up numbers.",
+      "Training searches for the dial setting where the error is smallest. Predict first, then slide."
+     ],
+     "claims": [
+      "c8"
+     ],
+     "quiz": [
+      "ml-q3"
+     ],
+     "simulation": {
+      "constants": {
+       "x": 2,
+       "y": 6
+      },
+      "params": [
+       {
+        "id": "w",
+        "label": "Dial value (weight)",
+        "min": 0,
+        "max": 6,
+        "step": 0.1,
+        "default": 1
+       }
+      ],
+      "outputs": [
+       {
+        "id": "pred",
+        "label": "Model's output",
+        "expr": "w*x",
+        "decimals": 1
+       },
+       {
+        "id": "err",
+        "label": "Error (squared)",
+        "expr": "(w*x-y)^2",
+        "decimals": 1
+       }
+      ],
+      "chart": {
+       "x": "w",
+       "y": [
+        "err"
+       ]
+      },
+      "predict": {
+       "prompt": "The input is 2 and the correct output is 6. Where is the error smallest?",
+       "options": [
+        "Dial at 1",
+        "Dial at 3",
+        "Dial at 6"
+       ],
+       "answer": 1,
+       "explanation": "Three times two gives six, so the error is zero there. Training finds settings like this by nudging downhill on the error curve, for billions of dials at once."
+      },
+      "note": "Toy numbers. Real training does this for every parameter at once, on every example."
+     }
+    },
+    {
+     "id": "s8",
+     "phase": "retrieval",
+     "title": "Recall it",
+     "seconds": 220,
+     "body": [
+      "From memory, no scrolling back."
+     ],
+     "quiz": [
+      "ml-q4",
+      "ml-q5",
+      "ml-q6",
+      "ml-q7",
+      "ml-q8"
+     ]
+    },
+    {
+     "id": "s9",
+     "phase": "teachback",
+     "title": "Explain it back",
+     "seconds": 150,
+     "body": [
+      "Say it in your own words."
+     ],
+     "teachback": {
+      "prompt": "Explain to a friend how a chatbot learned to write, without anyone programming the rules.",
+      "modelAnswer": [
+       "Its behaviour lives in a huge number of adjustable values called parameters, which start random. In training it reads real text, guesses each next word, checks against the word that actually came next, and backpropagation nudges the parameters so the right word becomes more likely. The text supplies its own answers, so no one has to label it, and repeating this over an enormous amount of text tunes the model."
+      ],
+      "rubric": [
+       "Mentions parameters that start random",
+       "Describes guess, compare, adjust",
+       "Says the answers come from the text itself, no human labels",
+       "Mentions the huge scale of text"
+      ]
+     }
+    },
+    {
+     "id": "s10",
+     "phase": "review",
+     "title": "Into your review deck",
+     "seconds": 45,
+     "body": [
+      "Spaced review keeps this from fading."
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": "ml-q1",
+     "type": "mcq",
+     "objective": "o2",
+     "prompt": "Who sets the values inside a model?",
+     "options": [
+      "Engineers type them in by hand",
+      "Training adjusts them automatically",
+      "They are fixed at random forever"
+     ],
+     "answer": 1,
+     "explanation": "They start random; training nudges them. Nobody sets them by hand."
+    },
+    {
+     "id": "ml-q2",
+     "type": "mcq",
+     "objective": "o3",
+     "prompt": "Does pretraining need people to label each example?",
+     "options": [
+      "Yes, every sentence is labelled",
+      "No, the next word in the text is the answer",
+      "Only for the first million examples"
+     ],
+     "answer": 1,
+     "explanation": "Pretraining is self-supervised: the real next word is already in the text, so it acts as the label."
+    },
+    {
+     "id": "ml-q3",
+     "type": "numeric",
+     "objective": "o1",
+     "prompt": "In the toy model, the input is 2 and the correct output is 6. What dial value gives zero error?",
+     "answer": 3,
+     "tolerance": 0.05,
+     "compute": {
+      "expr": "y/x",
+      "vars": {
+       "x": 2,
+       "y": 6
+      }
+     },
+     "explanation": "Output equals dial times input, so the dial must be six divided by two."
+    },
+    {
+     "id": "ml-q4",
+     "type": "order",
+     "objective": "o1",
+     "prompt": "Order one training step.",
+     "items": [
+      "Show text with the next word hidden",
+      "The model guesses the next word",
+      "Compare with the real next word",
+      "Nudge the parameters"
+     ],
+     "explanation": "Guess, check, update, then on to the next example."
+    },
+    {
+     "id": "ml-q5",
+     "type": "cloze",
+     "objective": "o2",
+     "prompt": "The adjustable values that set a model's behaviour are called ______.",
+     "accept": [
+      "parameters",
+      "weights",
+      "parameter",
+      "weight"
+     ],
+     "explanation": "Parameters, also called weights. Large models have hundreds of billions."
+    },
+    {
+     "id": "ml-q6",
+     "type": "mcq",
+     "objective": "o3",
+     "prompt": "Why is pretraining called self-supervised?",
+     "options": [
+      "The model grades itself without any data",
+      "The text provides its own answers: the real next word",
+      "Supervisors check the model every day"
+     ],
+     "answer": 1,
+     "explanation": "Each sentence carries its own answer key, so no human labelling is needed."
+    },
+    {
+     "id": "ml-q7",
+     "type": "recall",
+     "objective": "o1",
+     "prompt": "What does backpropagation do after a wrong guess?",
+     "answer": "It adjusts the parameters so the true next word becomes more likely and the other words less likely in that context."
+    },
+    {
+     "id": "ml-q8",
+     "type": "numeric",
+     "objective": "o2",
+     "prompt": "At 2 bytes per parameter, how many gigabytes do 7 billion parameters need?",
+     "answer": 14,
+     "unit": "GB",
+     "tolerance": 0.1,
+     "compute": {
+      "expr": "p*b",
+      "vars": {
+       "p": 7,
+       "b": 2
+      }
+     },
+     "explanation": "One billion parameters at 2 bytes each is 2 GB, so 7 billion is 7 × 2 = 14 GB."
+    }
+   ],
+   "flashcards": [
+    {
+     "id": "ml-f1",
+     "front": "What are parameters?",
+     "back": "Adjustable values (weights) that set a model's behaviour",
+     "objective": "o2"
+    },
+    {
+     "id": "ml-f2",
+     "front": "How do parameters start?",
+     "back": "Random, then refined by training",
+     "objective": "o2"
+    },
+    {
+     "id": "ml-f3",
+     "front": "One training step, in three words",
+     "back": "Guess, check, nudge",
+     "objective": "o1"
+    },
+    {
+     "id": "ml-f4",
+     "front": "What does backpropagation do?",
+     "back": "Nudges parameters so the true next word gets more likely",
+     "objective": "o1"
+    },
+    {
+     "id": "ml-f5",
+     "front": "Why is pretraining self-supervised?",
+     "back": "The real next word in the text is the label",
+     "objective": "o3"
+    }
+   ]
+  },
+  {
+   "id": "assistant-and-hallucination",
+   "title": "From predictor to assistant, and why it makes things up",
+   "minutes": 18,
+   "summary": "Fine-tuning and human feedback turn a text predictor into a helpful assistant. Pretraining and guess-rewarding scoreboards explain why it still states false things confidently.",
+   "prerequisites": [
+    "how-models-learn"
+   ],
+   "misconceptions": [
+    "A chatbot knows when it does not know",
+    "Hallucinations are random glitches that will simply disappear",
+    "The assistant is a different kind of model from the predictor"
+   ],
+   "objectives": [
+    {
+     "id": "o1",
+     "verb": "understand",
+     "text": "Explain how instruction fine-tuning and RLHF turn a base model into an assistant"
+    },
+    {
+     "id": "o2",
+     "verb": "understand",
+     "text": "Explain why next-word training produces confident false statements"
+    },
+    {
+     "id": "o3",
+     "verb": "analyze",
+     "text": "Explain why grading only on accuracy encourages guessing"
+    }
+   ],
+   "claims": [
+    {
+     "id": "c1",
+     "text": "A model that has only been pretrained doesn't reliably follow instructions and can reproduce harmful content from its training data.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-cset",
+       "quoteId": "q-base"
+      }
+     ]
+    },
+    {
+     "id": "c2",
+     "text": "Instruction fine-tuning is supervised learning that teaches a model to follow user instructions.",
+     "kind": "definition",
+     "support": [
+      {
+       "sourceId": "src-wiki",
+       "quoteId": "q-ift"
+      }
+     ]
+    },
+    {
+     "id": "c3",
+     "text": "RLHF trains a reward model to predict which text humans prefer.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-wiki",
+       "quoteId": "q-reward"
+      }
+     ]
+    },
+    {
+     "id": "c4",
+     "text": "The model is then fine-tuned with reinforcement learning to better satisfy the reward model.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-wiki",
+       "quoteId": "q-rl"
+      }
+     ]
+    },
+    {
+     "id": "c5",
+     "text": "People flag unhelpful or problematic predictions, and their corrections push the parameters toward preferred responses.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-3b1b",
+       "quoteId": "q-rlhf"
+      }
+     ]
+    },
+    {
+     "id": "c6",
+     "text": "Hallucinations are plausible but false statements generated by language models.",
+     "kind": "definition",
+     "support": [
+      {
+       "sourceId": "src-openai",
+       "quoteId": "q-def"
+      }
+     ]
+    },
+    {
+     "id": "c7",
+     "text": "Arbitrary low-frequency facts, like a pet's birthday, cannot be predicted from patterns alone.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-openai",
+       "quoteId": "q-pet"
+      }
+     ]
+    },
+    {
+     "id": "c8",
+     "text": "In pretraining the model sees only examples of fluent language and has to approximate the overall pattern.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-openai",
+       "quoteId": "q-positive"
+      }
+     ]
+    },
+    {
+     "id": "c9",
+     "text": "Graded only on accuracy, models are encouraged to guess rather than say \"I don't know\".",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-openai",
+       "quoteId": "q-accuracy"
+      }
+     ]
+    },
+    {
+     "id": "c10",
+     "text": "Hallucinations persist partly because evaluations set the wrong incentives; scoreboards that reward lucky guesses teach models to guess.",
+     "kind": "fact",
+     "support": [
+      {
+       "sourceId": "src-openai",
+       "quoteId": "q-incent"
+      },
+      {
+       "sourceId": "src-openai",
+       "quoteId": "q-score"
+      }
+     ]
+    },
+    {
+     "id": "c11",
+     "text": "Illustrative toy example: the model is sure of 60% of answers and a blind guess is right 25% of the time; the numbers are made up.",
+     "kind": "illustrative"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "phase": "hook",
+     "title": "Ask about something nobody wrote down",
+     "seconds": 60,
+     "body": [
+      "Ask a chatbot for the birthday of a stranger's pet. That fact is not in any text it learned from.",
+      "Will it say it does not know, or will it answer anyway, confidently? Guess."
+     ],
+     "scene": {
+      "caption": "A question with no answer in the training text.",
+      "alt": "A question about a pet's birthday goes into the assistant; the reply is unknown",
+      "nodes": [
+       {
+        "id": "q",
+        "label": "\"When is Max\nthe dog's birthday?\"",
+        "x": 10,
+        "y": 50,
+        "shape": "box",
+        "tone": "muted"
+       },
+       {
+        "id": "asst",
+        "label": "Assistant",
+        "x": 50,
+        "y": 50,
+        "shape": "box"
+       },
+       {
+        "id": "out",
+        "label": "?",
+        "x": 88,
+        "y": 50,
+        "shape": "circle",
+        "tone": "accent"
+       }
+      ],
+      "edges": [
+       {
+        "from": "q",
+        "to": "asst",
+        "flow": true
+       },
+       {
+        "from": "asst",
+        "to": "out"
+       }
+      ]
+     }
+    },
+    {
+     "id": "s2",
+     "phase": "activate",
+     "title": "Quick guess",
+     "seconds": 80,
+     "body": [
+      "Guess before the explanation."
+     ],
+     "quiz": [
+      "ah-q1",
+      "ah-q2"
+     ]
+    },
+    {
+     "id": "s3",
+     "phase": "explain",
+     "title": "A base model only continues text",
+     "seconds": 90,
+     "body": [
+      "After pretraining you have a ==base model==: a powerful text continuer. Ask it a question and it may continue with more questions, because that is what text often does.",
+      "It doesn't reliably follow instructions, and it can repeat harmful content from its training data."
+     ],
+     "claims": [
+      "c1"
+     ],
+     "scene": {
+      "caption": "A base model continues text; it is not yet trying to help.",
+      "alt": "Pretraining produces a base model that continues text",
+      "nodes": [
+       {
+        "id": "pre",
+        "label": "Pretraining",
+        "x": 8,
+        "y": 50,
+        "shape": "cylinder",
+        "tone": "muted"
+       },
+       {
+        "id": "base",
+        "label": "Base model\n(text continuer)",
+        "x": 40,
+        "y": 50,
+        "shape": "box"
+       },
+       {
+        "id": "out",
+        "label": "continues text,\nmay ignore you",
+        "x": 82,
+        "y": 50,
+        "shape": "pill",
+        "tone": "warn"
+       }
+      ],
+      "edges": [
+       {
+        "from": "pre",
+        "to": "base"
+       },
+       {
+        "from": "base",
+        "to": "out",
+        "flow": true
+       }
+      ]
+     }
+    },
+    {
+     "id": "s4",
+     "phase": "explain",
+     "title": "Teaching it to be an assistant",
+     "seconds": 130,
+     "body": [
+      "Two more training stages follow. ==Instruction fine-tuning== trains on examples of instructions and good responses, so it learns to follow requests.",
+      "Then ==RLHF== (reinforcement learning from human feedback): people judge responses, a reward model learns to predict which text humans prefer, and the assistant is tuned to score well with it.",
+      "It is the same next-word predictor, with its parameters pushed toward helpful replies."
+     ],
+     "claims": [
+      "c2",
+      "c3",
+      "c4",
+      "c5"
+     ],
+     "scene": {
+      "caption": "Same model, two more rounds of nudging: follow instructions, then match what people prefer.",
+      "alt": "Base model goes through instruction fine-tuning and RLHF with a reward model to become an assistant",
+      "nodes": [
+       {
+        "id": "pre",
+        "label": "Pretraining",
+        "x": 6,
+        "y": 30,
+        "shape": "cylinder",
+        "tone": "muted"
+       },
+       {
+        "id": "base",
+        "label": "Base model",
+        "x": 28,
+        "y": 30,
+        "shape": "box",
+        "tone": "muted"
+       },
+       {
+        "id": "ift",
+        "label": "Instruction\nfine-tuning",
+        "x": 52,
+        "y": 30,
+        "shape": "box"
+       },
+       {
+        "id": "rm",
+        "label": "Reward model\n(human prefs)",
+        "x": 52,
+        "y": 82,
+        "shape": "diamond",
+        "tone": "accent"
+       },
+       {
+        "id": "asst",
+        "label": "Assistant",
+        "x": 88,
+        "y": 30,
+        "shape": "box",
+        "tone": "ok"
+       }
+      ],
+      "edges": [
+       {
+        "from": "pre",
+        "to": "base"
+       },
+       {
+        "from": "base",
+        "to": "ift",
+        "flow": true
+       },
+       {
+        "from": "ift",
+        "to": "asst",
+        "flow": true
+       },
+       {
+        "from": "rm",
+        "to": "asst",
+        "label": "RLHF",
+        "curve": true
+       }
+      ]
+     }
+    },
+    {
+     "id": "s5",
+     "phase": "explain",
+     "title": "Why it makes things up",
+     "seconds": 110,
+     "body": [
+      "A ==hallucination== is a plausible but false statement.",
+      "Pretraining shows the model only fluent text, never labelled as true or false, so it learns what sounds right. Patterns can't supply one-off facts, like a pet's birthday. Asked for one, the predictor still produces the most fluent-sounding answer."
+     ],
+     "claims": [
+      "c6",
+      "c7",
+      "c8"
+     ],
+     "scene": {
+      "caption": "Patterns give fluent text, not rare facts. The gap gets filled with something that sounds right.",
+      "alt": "Patterns flow into the assistant which outputs a fluent but false answer",
+      "nodes": [
+       {
+        "id": "q",
+        "label": "\"When is Max\nthe dog's birthday?\"",
+        "x": 10,
+        "y": 30,
+        "shape": "box",
+        "tone": "muted"
+       },
+       {
+        "id": "pat",
+        "label": "Patterns of\nfluent text",
+        "x": 10,
+        "y": 80,
+        "shape": "cylinder",
+        "tone": "main"
+       },
+       {
+        "id": "asst",
+        "label": "Assistant",
+        "x": 50,
+        "y": 50,
+        "shape": "box"
+       },
+       {
+        "id": "out",
+        "label": "Confident,\nplausible, false",
+        "x": 87,
+        "y": 50,
+        "shape": "pill",
+        "tone": "warn"
+       }
+      ],
+      "edges": [
+       {
+        "from": "q",
+        "to": "asst",
+        "flow": true
+       },
+       {
+        "from": "pat",
+        "to": "asst"
+       },
+       {
+        "from": "asst",
+        "to": "out",
+        "flow": true
+       }
+      ]
+     }
+    },
+    {
+     "id": "s6",
+     "phase": "explain",
+     "title": "Scoreboards that reward guessing",
+     "seconds": 100,
+     "body": [
+      "Hallucinations also persist because of how models are graded. If a test counts only right answers, ==guessing beats saying \"I don't know\"==: a guess might be lucky, an honest blank scores nothing.",
+      "Scoreboards that reward lucky guesses keep teaching models to guess."
+     ],
+     "claims": [
+      "c9",
+      "c10"
+     ],
+     "scene": {
+      "caption": "Accuracy-only grading pays for lucky guesses and nothing for honesty.",
+      "alt": "A guess may score a point while I don't know scores zero",
+      "nodes": [
+       {
+        "id": "asst",
+        "label": "Assistant",
+        "x": 12,
+        "y": 50,
+        "shape": "box"
+       },
+       {
+        "id": "guess",
+        "label": "Guess",
+        "x": 50,
+        "y": 25,
+        "shape": "pill",
+        "tone": "accent"
+       },
+       {
+        "id": "idk",
+        "label": "\"I don't know\"",
+        "x": 50,
+        "y": 75,
+        "shape": "pill",
+        "tone": "muted"
+       },
+       {
+        "id": "pts",
+        "label": "sometimes\nscores",
+        "x": 88,
+        "y": 25,
+        "shape": "circle",
+        "tone": "ok"
+       },
+       {
+        "id": "zero",
+        "label": "never\nscores",
+        "x": 88,
+        "y": 75,
+        "shape": "circle",
+        "tone": "warn"
+       }
+      ],
+      "edges": [
+       {
+        "from": "asst",
+        "to": "guess"
+       },
+       {
+        "from": "asst",
+        "to": "idk"
+       },
+       {
+        "from": "guess",
+        "to": "pts",
+        "flow": true
+       },
+       {
+        "from": "idk",
+        "to": "zero"
+       }
+      ]
+     }
+    },
+    {
+     "id": "s7",
+     "phase": "guided_practice",
+     "title": "Design a fairer scoreboard",
+     "seconds": 180,
+     "body": [
+      "A toy test with made-up numbers. The model is sure of some answers and must either guess the rest or say \"I don't know\".",
+      "Change the penalty for a wrong answer and watch which strategy wins. Predict first."
+     ],
+     "claims": [
+      "c11",
+      "c9"
+     ],
+     "simulation": {
+      "params": [
+       {
+        "id": "known",
+        "label": "Share of answers the model truly knows",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "default": 0.6
+       },
+       {
+        "id": "luck",
+        "label": "Chance a blind guess is right",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "default": 0.25
+       },
+       {
+        "id": "penalty",
+        "label": "Points lost per wrong answer",
+        "min": 0,
+        "max": 2,
+        "step": 0.05,
+        "default": 0
+       }
+      ],
+      "outputs": [
+       {
+        "id": "sg",
+        "label": "Score if it always guesses",
+        "expr": "100*(known+(1-known)*(luck-(1-luck)*penalty))",
+        "decimals": 0,
+        "unit": "pts"
+       },
+       {
+        "id": "si",
+        "label": "Score if it says \"I don't know\"",
+        "expr": "100*known",
+        "decimals": 0,
+        "unit": "pts"
+       }
+      ],
+      "chart": {
+       "x": "penalty",
+       "y": [
+        "sg",
+        "si"
+       ]
+      },
+      "predict": {
+       "prompt": "With no penalty for wrong answers (accuracy-only grading), which strategy scores higher?",
+       "options": [
+        "Always guess",
+        "Say \"I don't know\" when unsure",
+        "They tie"
+       ],
+       "answer": 0,
+       "explanation": "With no penalty, a guess can only add points, so guessing always wins. Add a penalty and honesty starts to pay: where the lines cross, the incentive flips."
+      },
+      "note": "Made-up numbers. The point is the incentive, not the exact scores."
+     }
+    },
+    {
+     "id": "s8",
+     "phase": "retrieval",
+     "title": "Recall it",
+     "seconds": 220,
+     "body": [
+      "From memory first."
+     ],
+     "quiz": [
+      "ah-q3",
+      "ah-q4",
+      "ah-q5",
+      "ah-q6",
+      "ah-q7"
+     ]
+    },
+    {
+     "id": "s9",
+     "phase": "teachback",
+     "title": "Explain it back",
+     "seconds": 150,
+     "body": [
+      "Put the whole lesson in your own words."
+     ],
+     "teachback": {
+      "prompt": "A friend says: \"If AI is so smart, why does it make up facts?\" Explain in a few sentences.",
+      "modelAnswer": [
+       "It is a next-word predictor trained on fluent text, so it learns what sounds right, not a list of true facts. Rare one-off facts cannot be predicted from patterns, so it fills the gap with something plausible. Fine-tuning and human feedback make it helpful, but tests that only count right answers reward guessing over saying \"I don't know\", so the habit persists."
+      ],
+      "rubric": [
+       "Says it predicts plausible text rather than looking up facts",
+       "Mentions rare facts cannot come from patterns",
+       "Mentions grading that rewards guessing",
+       "Mentions fine-tuning or human feedback shaping behaviour"
+      ]
+     }
+    },
+    {
+     "id": "s10",
+     "phase": "review",
+     "title": "Into your review deck",
+     "seconds": 45,
+     "body": [
+      "Last step: add the cards."
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": "ah-q1",
+     "type": "mcq",
+     "objective": "o1",
+     "prompt": "What turns a text predictor into a helpful assistant?",
+     "options": [
+      "A completely different kind of model",
+      "More training: instruction examples and human feedback",
+      "A database of correct answers"
+     ],
+     "answer": 1,
+     "explanation": "It is the same predictor, fine-tuned on instructions and then tuned with human feedback (RLHF)."
+    },
+    {
+     "id": "ah-q2",
+     "type": "mcq",
+     "objective": "o2",
+     "prompt": "Why do chatbots sometimes state false things confidently?",
+     "options": [
+      "They are deliberately lying",
+      "They produce what sounds right, even without the fact",
+      "A bug that appears at random"
+     ],
+     "answer": 1,
+     "explanation": "Trained to predict fluent text, a model fills gaps with plausible words. Rare facts cannot be learned from patterns."
+    },
+    {
+     "id": "ah-q3",
+     "type": "order",
+     "objective": "o1",
+     "prompt": "Order the training stages of a chat assistant.",
+     "items": [
+      "Pretraining on large amounts of text",
+      "Instruction fine-tuning",
+      "Reinforcement learning from human feedback"
+     ],
+     "explanation": "Pretrain to get a text continuer, teach it to follow instructions, then tune it toward what people prefer."
+    },
+    {
+     "id": "ah-q4",
+     "type": "cloze",
+     "objective": "o2",
+     "prompt": "Plausible but false statements from a language model are called ______.",
+     "accept": [
+      "hallucinations",
+      "hallucination"
+     ],
+     "explanation": "Hallucinations: fluent and believable, but wrong."
+    },
+    {
+     "id": "ah-q5",
+     "type": "mcq",
+     "objective": "o1",
+     "prompt": "In RLHF, what does the reward model learn to predict?",
+     "options": [
+      "The next word",
+      "Which text humans prefer",
+      "Whether a fact is true"
+     ],
+     "answer": 1,
+     "explanation": "It predicts human preference. The assistant is then tuned to score well with it."
+    },
+    {
+     "id": "ah-q6",
+     "type": "recall",
+     "objective": "o2",
+     "prompt": "Why can't a model learn a fact like a particular pet's birthday from pretraining?",
+     "answer": "It is an arbitrary, rare fact. Pretraining teaches patterns of fluent text, and patterns cannot predict one-off facts, so the model fills the gap with something plausible."
+    },
+    {
+     "id": "ah-q7",
+     "type": "recall",
+     "objective": "o3",
+     "prompt": "Explain why grading only on accuracy encourages guessing.",
+     "answer": "A guess might be lucky and earn a point, while \"I don't know\" always earns nothing. With no penalty for wrong answers, guessing can only help the score, so models learn to guess."
+    }
+   ],
+   "flashcards": [
+    {
+     "id": "ah-f1",
+     "front": "What is a hallucination?",
+     "back": "A plausible but false statement from a language model",
+     "objective": "o2"
+    },
+    {
+     "id": "ah-f2",
+     "front": "What does instruction fine-tuning teach?",
+     "back": "To follow user instructions",
+     "objective": "o1"
+    },
+    {
+     "id": "ah-f3",
+     "front": "What does RLHF's reward model predict?",
+     "back": "Which text humans prefer",
+     "objective": "o1"
+    },
+    {
+     "id": "ah-f4",
+     "front": "Why can't patterns supply a pet's birthday?",
+     "back": "Rare one-off facts can't be predicted from patterns",
+     "objective": "o2"
+    },
+    {
+     "id": "ah-f5",
+     "front": "Why does accuracy-only grading cause guessing?",
+     "back": "A guess may score; \"I don't know\" never does",
+     "objective": "o3"
+    }
+   ]
+  }
+ ],
+ "checkpoints": [
+  {
+   "id": "cp1",
+   "title": "Inside a chatbot, mixed",
+   "afterLesson": "assistant-and-hallucination",
+   "items": [
+    {
+     "id": "cp1-q1",
+     "lessonRef": "next-word",
+     "type": "mcq",
+     "prompt": "A model answers \"The capital of France is ...\". Which describes what happens?",
+     "options": [
+      "It looks up France in a stored table",
+      "It scores possible next tokens and \"Paris\" is most probable",
+      "It plans a full paragraph about France first"
+     ],
+     "answer": 1,
+     "explanation": "Same mechanism as every other reply: score candidates, pick one, add it, repeat."
+    },
+    {
+     "id": "cp1-q2",
+     "lessonRef": "how-models-learn",
+     "type": "cloze",
+     "prompt": "The step that nudges parameters after a wrong guess is called ______.",
+     "accept": [
+      "backpropagation",
+      "backprop"
+     ],
+     "explanation": "Backpropagation makes the true next word more likely next time."
+    },
+    {
+     "id": "cp1-q3",
+     "lessonRef": "assistant-and-hallucination",
+     "type": "mcq",
+     "prompt": "Which change would most discourage a model from guessing?",
+     "options": [
+      "Grading only on accuracy",
+      "Penalising confident wrong answers",
+      "Making the model bigger"
+     ],
+     "answer": 1,
+     "explanation": "Once wrong answers cost something, \"I don't know\" can beat a blind guess."
+    },
+    {
+     "id": "cp1-q4",
+     "lessonRef": "next-word",
+     "type": "recall",
+     "prompt": "You ask the same question twice and get two different answers. Explain why, using what you know about training and generation.",
+     "answer": "Training gave the model probabilities over next tokens, and generation samples from them, so a different token can be picked and the reply takes a different path. Temperature sets how much this happens."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+I can't reproduce the article's main text verbatim, but here is a concise overview of the sections you asked about, with a few short quotes.
+
+**Next-word prediction and probabilities**
+- An LLM receives an input prompt and estimates which words are most likely to come next. It then picks a high-probability word and keeps extending the text one word at a time.
+- Developers adjust a setting called "temperature." Lower values suit factual questions, while higher values produce more varied text. The article notes that always choosing the single top word can make output repetitive.
+
+**Tokens and parameters**
+- Models can't process raw words, so text is split into tokens, and each token is converted into a list of numbers called a word embedding.
+- Embeddings start as random numbers and are refined during training. Words with similar meanings end up closer together in this numerical space.
+- The model's internal numbers, called parameters, are adjusted through a process called backpropagation.
+
+**Pre-training and training data**
+- Pre-training is self-supervised. The model is trained on large volumes of internet text, such as Wikipedia, books, and forum discussions, with no human labeling.
+- The model guesses the next word, compares its guess to the actual word, and then updates its parameters. The article describes this as guessing, checking, and updating.
+
+> "LLMs learn to predict the next word by recognizing patterns in enormous quantities of text data"
+
+**Why it's powerful**
+- Pre-training on a generic task can yield representations useful for other tasks. This is called transfer learning. The article's example is an OpenAI model trained to predict review text that also performed sentiment analysis.
+- Models trained this way can capture both language structure and factual content, though the article notes that whether this amounts to true understanding or reasoning is debated.
+
+**Limits of a base model**
+- A model that has only been pre-trained doesn't reliably follow instructions and can reproduce harmful content from its training data. Later steps are needed to address this.

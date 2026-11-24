@@ -1,0 +1,8 @@
+The lesson presents an LLM as a function that predicts the next word, with the output being probabilities:
+
+- **Next-word prediction:** An LLM is "a sophisticated mathematical function that predicts what word comes next for any piece of text." Rather than picking one word, it will "assign a probability to all possible next words." Because the model samples from these probabilities, the same prompt can produce different answers.
+- **Parameters:** Behavior is set by "many different continuous values, usually called *parameters* or *weights*." Large models can have hundreds of billions of them. They start random and are refined during training.
+- **Backpropagation:** Training compares the model's prediction with the true next word. Backpropagation then adjusts the parameters so the true word becomes more likely and the others less likely.
+- **Training data:** The lesson gives a sense of scale: to read the text used to train GPT-3, "they would need to read non-stop, 24-7, for over 2,600 years." Newer models train on much more.
+- **RLHF:** After pre-training, chatbots undergo reinforcement learning with human feedback. Workers flag "unhelpful or problematic predictions," and their corrections further adjust the parameters toward responses users prefer.
+- **Transformers and attention:** Words are first converted into lists of numbers. The transformer's key operation is attention, which lets these lists exchange context, so a word like "bank" can take on a meaning like "riverbank." Feed-forward layers store learned patterns, and the process repeats across many layers. The final output is a probability for each possible next word. Transformers process text in parallel rather than word by word, which makes large-scale training feasible on GPUs.

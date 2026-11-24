@@ -1,0 +1,17 @@
+**Source:** Wikipedia, "Large language model" (CC BY-SA). The article does not contain a short, exact sentence for every topic you listed, so some topics are paraphrased or noted as absent.
+
+**Tokenization and tokens**
+- "As machine learning algorithms process numbers rather than text, the text must be converted to numbers."
+- "Tokenization also compresses the datasets."
+
+**Training by predicting the next token**
+- "Generative pre-trained transformers (GPTs) are a type of LLM that is pre-trained to predict the next word."
+- "Before being fine-tuned, most LLMs are next-token predictors."
+
+**Parameters**
+- "One float16 has 16 bits, or 2 bytes, and so one billion parameters require 2 gigabytes."
+
+**Fine-tuning and reinforcement learning from human feedback**
+- "Instruction fine-tuning is a form of supervised learning used to teach LLMs to follow user instructions."
+- "RLHF involves training a reward model to predict which text humans prefer."
+- "Then, the LLM can be fine-tuned through reinforcement learning to better satisfy this reward model."

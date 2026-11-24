@@ -1,0 +1,7 @@
+{
+  "name": "teachme",
+  "version": "0.1.0",
+  "description": "/teachme turns any topic, chapter or course, plus your own PDFs, notes and links, into an interactive learn-fast lesson site built on the RAPID-8 protocol: pretest, live diagrams, worked examples, recall quizzes with a mastery gate, teach-back and spaced review.",
+  "author": { "name": "Tarun Chaudhary" },
+  "keywords": ["learning", "education", "course", "spaced-repetition", "lessons"]
+}
