@@ -95,6 +95,12 @@ main{padding:24px max(3vw,16px) 120px}
 .flash .back{border-top:2px dashed var(--line);margin-top:14px;padding-top:14px;font-size:17px}
 .rate button small{display:block;font-size:12px;color:var(--soft)}
 .scroll{overflow-x:auto}
+.its{list-style:none;margin:8px 0 0;padding:0}.its li{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}.its li:last-child{border-bottom:0}.its small{margin-left:auto;color:var(--soft);white-space:nowrap}
+.plan{display:grid;gap:10px}.sess{display:grid;grid-template-columns:minmax(0,9em) minmax(0,1fr);gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}.sess.today{border:2px solid var(--pri)}.sd b{display:block;font-family:var(--disp);font-size:18px}.sd small{color:var(--soft)}.sess .its{margin:0}
+.paces{display:grid;grid-template-columns:repeat(auto-fit,minmax(10em,1fr));gap:10px}.pace{display:grid;gap:2px;padding:12px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;min-height:44px}.pace.on{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 8%,var(--card))}.pace input{position:absolute;opacity:0}.pace small{color:var(--soft)}.pace:focus-within{outline:3px solid var(--hlink)}
+.pform{display:grid;grid-template-columns:repeat(auto-fit,minmax(14em,1fr));gap:16px;margin-top:16px}.pform label{display:grid;gap:6px}select,input[type=date]{font:inherit;font-size:16px;min-height:44px;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.plan-today{margin-top:0}
+@media(max-width:600px){.sess{grid-template-columns:minmax(0,1fr);gap:4px}}
 table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
 blockquote{margin:6px 0;padding:6px 12px;border-left:4px solid var(--hlink);background:var(--panel);border-radius:0 8px 8px 0}
 svg text{font-family:var(--ui);paint-order:stroke;stroke:var(--panel);stroke-width:4px}
@@ -102,7 +108,7 @@ svg text{font-family:var(--ui);paint-order:stroke;stroke:var(--panel);stroke-wid
 .edges{transition:opacity .3s}
 @media(prefers-reduced-motion:reduce){.n,.edges{transition:none}.pk{display:none}}
 @media(max-width:900px){.stage,.hero{grid-template-columns:minmax(0,1fr)}.figwrap{position:static}.stage.sim .figwrap{order:2}}
-@media(max-width:600px){.cover{display:grid;grid-template-columns:auto minmax(0,1fr) auto;row-gap:6px;padding-block:8px}.cover nav{grid-column:1/-1;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.cover nav a{flex:none}.szg{gap:0}.sz{min-width:40px}
+@media(max-width:600px){.cover{display:grid;grid-template-columns:auto minmax(0,1fr) auto;row-gap:6px;padding-block:8px}.cover nav{grid-column:1/-1;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.cover nav a{flex:none}.szg{gap:0;grid-row:1;grid-column:3}.sz{min-width:40px}
 .phases{flex-wrap:nowrap}.ph{flex:1 1 0;font-size:0}.ph.on{flex:3 1 0;font-size:13px}}
 @media(max-width:760px){.wrap{grid-template-columns:minmax(0,1fr)}.rail{display:none;position:fixed;inset:0;z-index:20;background:var(--bg);max-height:none}.rail.open{display:block}.menu{display:inline-flex}.fig{min-height:260px}}
 </style>
@@ -297,7 +303,7 @@ function rail(active){
   $('#closeRail').onclick = () => $('#rail').classList.remove('open');
 }
 function topnav(r){ const due = dueCards().length;
-  $('#topnav').innerHTML = [['home','Course'],['review',`Review${due?` (${due})`:''}`],['test','1-week test'],['sources','Sources']].map(([h,t]) => `<a href="#${h}" class="${r===h?'on':''}">${t}</a>`).join(''); }
+  $('#topnav').innerHTML = [['home','Course'],['plan','Plan'],['review',`Review${due?` (${due})`:''}`],['test','1-week test'],['sources','Sources']].map(([h,t]) => `<a href="#${h}" class="${r===h?'on':''}">${t}</a>`).join(''); }
 
 function home(){
   const built = lessons.length, total = order.length, mins = lessons.reduce((s,l)=>s+(l.minutes||0),0);
@@ -305,7 +311,7 @@ function home(){
   $('#main').innerHTML = `<section class="hero"><div><div class="kicker">${esc(C.level||'')} · for ${esc(C.audience||'curious learners')}</div><h1>${esc(C.title)}</h1><p>${inline(C.summary||'')}</p>
   <div class="stats"><div><b>${built}${built<total?` / ${total}`:''}</b>lessons</div><div><b>${mins}</b>minutes</div><div><b>${mastered}</b>mastered</div><div><b>${dueCards().length}</b>cards due</div></div>
   <div class="row">${next?`<a class="btn pri" href="#l-${next}" style="text-decoration:none;display:inline-flex;align-items:center">${S.last?'Continue':'Start'}: ${esc(L[next].title)}</a>`:''}${dueCards().length?'<a class="btn" href="#review" style="text-decoration:none;display:inline-flex;align-items:center">Review due cards</a>':''}</div></div>
-  <div><div class="fig" id="mapfig" style="min-height:360px"></div><p class="cap">Concept map: arrows run from what you need first to what builds on it. Tap a concept to open its lesson.</p></div></section>
+  <div>${todayCard()}<div class="fig" id="mapfig" style="min-height:360px"></div><p class="cap">Concept map: arrows run from what you need first to what builds on it. Tap a concept to open its lesson.</p></div></section>
   <h2>How each lesson works</h2><p class="note" style="max-width:70ch">Every lesson runs the same eight short phases: a problem to predict, a pretest (wrong answers help), explanation with a live diagram, a worked example, practice, a recall quiz, explaining it back in your own words, and spaced review. Testing yourself and spacing your reviews do most of the work, so come back for the Review tab.</p>
   <div class="mods">${(C.modules||[]).map(m => `<div class="mod"><h3>${esc(m.title)}</h3>${m.lessons.map(id => `<a href="#l-${id}"><span class="dot ${status(id)}"></span>${esc(L[id]?.title||C.outline?.[id]||id)}<small>${L[id]?L[id].minutes+' min':'not built yet'}</small></a>`).join('')}</div>`).join('')}</div>
   ${C.gaps?.length?`<details class="card"><summary>Known gaps in the sources (${C.gaps.length})</summary><ul>${C.gaps.map(g=>`<li>${inline(g)}</li>`).join('')}</ul></details>`:''}`;
@@ -410,6 +416,87 @@ function reviewStepHTML(l){ const fc = l.flashcards||[]; const added = fc.every(
   return `<div class="card"><div class="kicker">${fc.length} cards for spaced review</div>${fc.map(f=>`<div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>${inline(f.front)}</b><br><span class="note">${inline(f.back)}</span></div>`).join('')}<div class="row" style="margin-top:12px">${added?'<span class="badge">In your review deck</span><a href="#review">Open review</a>':'<button class="pri" data-addcards>Add to my review deck</button>'}</div><p class="note">Reviews are scheduled just before you would forget: first tomorrow, then at growing gaps. Five to ten minutes a day, mixed across lessons, beats rereading.</p></div>`; }
 function bindReviewStep(l, id){ $('#main').querySelector('[data-addcards]')?.addEventListener('click', () => { const now = Date.now(); (l.flashcards||[]).forEach(f => { if (!S.cards[f.id]) S.cards[f.id] = {due: now, reps:0}; }); save(); lesson(id); topnav(''); }); }
 
+
+/* ---------- learning pace planner ---------- */
+const DEFAULT_PACE = Object.assign({mode:'daily', minutes:30, perWeek:3, retain:'month', deadline:''}, C.pace || {});
+const getPace = () => Object.assign({}, DEFAULT_PACE, S.pace || {});
+const RETAIN = {week:{label:'about a week', after:[1,3,6]}, month:{label:'a month or two', after:[1,4,10,24]}, year:{label:'a year or more', after:[1,7,21,60,120]}};
+const dayStart = d => { const x = new Date(d); x.setHours(0,0,0,0); return x; };
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const fmtDay = d => d.toLocaleDateString(undefined, {weekday:'short', day:'numeric', month:'short'});
+function buildPlan(pace){
+  const today = dayStart(Date.now()), todo = order.filter(id => L[id] && !S.lessons[id]?.done).map(id => L[id]);
+  const cps = (C.checkpoints||[]).filter(c => !S.lessons['c-'+c.id]?.done);
+  const sessions = [], notes = [];
+  let dates;
+  if (pace.mode === 'today') dates = [today];
+  else if (pace.mode === 'weekly') { const gap = 7 / Math.max(1, Math.min(7, pace.perWeek)); dates = Array.from({length:60}, (_,i) => addDays(today, Math.round(i*gap))); }
+  else if (pace.mode === 'deadline' && pace.deadline) { const end = dayStart(pace.deadline); const n = Math.max(1, Math.round((end - today)/DAY)); dates = Array.from({length:n}, (_,i) => addDays(today, i)); }
+  else dates = Array.from({length:120}, (_,i) => addDays(today, i));
+  const budget = pace.mode === 'today' ? Infinity : Math.max(10, +pace.minutes || 30);
+  let li = 0, studied = Object.values(S.lessons).some(x => x.done), di = 0, sinceBreak = 0;
+  while (li < todo.length && di < dates.length) {
+    const items = []; let left = budget;
+    if (studied && pace.mode !== 'today') { const r = Math.min(15, Math.max(5, Math.round(budget*0.2))); items.push({kind:'review', min:r}); left -= r; }
+    while (li < todo.length) { const l = todo[li], m = l.minutes || 18;
+      if (m > left && items.some(x => x.kind === 'lesson')) break;
+      if (pace.mode === 'today' && sinceBreak + m > 50 && items.length) { items.push({kind:'break', min:10}); sinceBreak = 0; }
+      items.push({kind:'lesson', id:l.id, title:l.title, min:m}); left -= m; sinceBreak += m; li++; studied = true;
+      cps.filter(c => c.afterLesson === l.id).forEach(c => { items.push({kind:'checkpoint', id:c.id, title:c.title, min:6}); left -= 6; });
+      if (left <= 0) break; }
+    sessions.push({date:dates[di], items}); di++;
+  }
+  if (li < todo.length) { const need = Math.ceil(todo.reduce((s,l)=>s+(l.minutes||18),0) / Math.max(1, dates.length)) + 10;
+    notes.push(`This pace can't fit every lesson before your date. You'd need about ${need} minutes a session, or a later date.`); }
+  const lastLesson = sessions.length ? sessions[sessions.length-1].date : today;
+  let after = (RETAIN[pace.retain] || RETAIN.month).after.slice();
+  if (pace.mode === 'deadline' && pace.deadline) { const end = dayStart(pace.deadline), room = Math.round((end - lastLesson)/DAY);
+    after = after.filter(a => a < room); if (room >= 2) after.push(room - 1); }
+  const firstDay = sessions[0]?.date || today;
+  after.forEach(a => { const d = addDays(lastLesson, a); const ex = sessions.find(x => +x.date === +d);
+    const item = {kind:'review', min:pace.mode==='today'?10:Math.min(15, Math.max(5, Math.round(budget*0.3)))};
+    if (ex) { if (!ex.items.some(i=>i.kind==='review')) ex.items.unshift(item); } else sessions.push({date:d, items:[item]}); });
+  const td = pace.mode === 'deadline' && pace.deadline ? addDays(dayStart(pace.deadline), -1) : addDays(firstDay, 7);
+  const tsess = sessions.find(x => +x.date === +td) || (sessions.push({date:td, items:[]}), sessions[sessions.length-1]);
+  tsess.items.push({kind:'test', min:10, final: pace.mode === 'deadline' && !!pace.deadline});
+  sessions.sort((a,b) => a.date - b.date);
+  const longest = Math.max(0, ...todo.map(l => l.minutes || 18));
+  if (pace.mode !== 'today' && longest + 5 > budget) notes.push(`Lessons take up to ${longest} minutes, so some sessions run over ${budget}. Your place is saved, so you can stop mid-lesson and pick it up next time.`);
+  if (pace.mode === 'today') notes.push('Doing it all in one sitting works for getting through it, but crammed material fades fast. The short reviews after today are what make it stick.');
+  if (pace.mode === 'deadline' && pace.deadline) notes.push('Lessons come first, then reviews at growing gaps, with a mixed test the day before your date.');
+  return {sessions, notes, total: sessions.reduce((s,x)=>s+x.items.reduce((a,i)=>a+i.min,0),0)};
+}
+const ITEM = {review:['Review due cards','#review'], break:['Break: stand up, look away from the screen',''], test:['1-week test: what stuck?','#test']};
+function itemHTML(i){ if (i.kind === 'lesson') { const d = S.lessons[i.id]?.done; return `<li><span class="dot ${d?'ok':'go'}"></span><a href="#l-${i.id}">${esc(i.title)}</a><small>${i.min} min</small></li>`; }
+  if (i.kind === 'checkpoint') return `<li><span class="dot"></span><a href="#c-${i.id}">Checkpoint: ${esc(i.title)}</a><small>${i.min} min</small></li>`;
+  let [t,h] = ITEM[i.kind]; if (i.final) t = 'Final mixed test before your date'; return `<li><span class="dot"></span>${h?`<a href="${h}">${t}</a>`:t}<small>${i.min} min</small></li>`; }
+function sessionHTML(x, today){ const m = x.items.reduce((a,i)=>a+i.min,0); const isT = +x.date === +today;
+  return `<div class="sess ${isT?'today':''}"><div class="sd"><b>${isT?'Today':fmtDay(x.date)}</b><small>${m} min</small></div><ul class="its">${x.items.map(itemHTML).join('')}</ul></div>`; }
+function todayCard(){ const pl = buildPlan(getPace()), today = dayStart(Date.now()); const t = pl.sessions.find(x => +x.date === +today); const nx = pl.sessions.find(x => x.date > today);
+  return `<div class="card plan-today"><div class="row" style="justify-content:space-between"><h3 style="margin:0">${t?'Today’s session':'Nothing planned today'}</h3><a href="#plan">Change pace</a></div>${t?`<ul class="its">${t.items.map(itemHTML).join('')}</ul>`:`<p class="note">Next session: ${nx?fmtDay(nx.date):'none, you’re done'}. ${dueCards().length?'You have cards due, so a quick review still helps.':''}</p>`}</div>`; }
+function planView(){
+  const pc = getPace(), pl = buildPlan(pc), today = dayStart(Date.now());
+  const opt = (v,t,d) => `<label class="pace ${pc.mode===v?'on':''}"><input type="radio" name="mode" value="${v}" ${pc.mode===v?'checked':''}><b>${t}</b><small>${d}</small></label>`;
+  $('#main').innerHTML = `<h1>Your learning plan</h1><p class="note" style="max-width:66ch">Pick a pace and the plan updates. Each session starts with due reviews, then new lessons that fit your time. Spacing sessions out beats one long sitting for remembering.</p>
+  <div class="card"><div class="paces">${opt('today','All today','One sitting, with breaks')}${opt('daily','Every day','A set time each day')}${opt('weekly','A few days a week','Spaced sessions')}${opt('deadline','By a date','Exam, interview, launch')}</div>
+  <div class="pform">
+   ${pc.mode!=='today'?`<label>Minutes per session: <b id="mv">${pc.minutes}</b><input type="range" id="pmin" min="10" max="240" step="5" value="${pc.minutes}"></label>`:''}
+   ${pc.mode==='weekly'?`<label>Sessions per week: <b id="wv">${pc.perWeek}</b><input type="range" id="pweek" min="1" max="7" step="1" value="${pc.perWeek}"></label>`:''}
+   ${pc.mode==='deadline'?`<label>Date I need it by<input type="date" id="pdate" value="${esc(pc.deadline)}" min="${new Date(Date.now()+DAY).toISOString().slice(0,10)}"></label>`:''}
+   ${pc.mode!=='deadline'?`<label>I need to remember it for<select id="pret">${Object.entries(RETAIN).map(([k,v])=>`<option value="${k}" ${pc.retain===k?'selected':''}>${v.label}</option>`).join('')}</select></label>`:''}
+  </div></div>
+  ${pl.notes.map(n=>`<div class="callout">${esc(n)}</div>`).join('')}
+  <p class="note">${pl.sessions.length} session${pl.sessions.length===1?'':'s'} · about ${Math.round(pl.total/60*10)/10} hours in all</p>
+  <div class="plan">${pl.sessions.map(x=>sessionHTML(x, today)).join('')}</div>`;
+  const upd = patch => { S.pace = Object.assign(getPace(), patch); save(); planView(); };
+  $('#main').querySelectorAll('[name=mode]').forEach(r => r.onchange = () => upd({mode:r.value}));
+  const mi = $('#pmin'); if (mi) { mi.oninput = () => $('#mv').textContent = mi.value; mi.onchange = () => upd({minutes:+mi.value}); }
+  const wk = $('#pweek'); if (wk) { wk.oninput = () => $('#wv').textContent = wk.value; wk.onchange = () => upd({perWeek:+wk.value}); }
+  $('#pdate')?.addEventListener('change', e => upd({deadline:e.target.value}));
+  $('#pret')?.addEventListener('change', e => upd({retain:e.target.value}));
+  topnav('plan'); rail('');
+}
+
 function review(){
   const due = dueCards(); const total = Object.keys(S.cards).length;
   const tsv = allCards().map(f => [plain(f.front), plain(f.back), C.id].map(x=>x.replace(/\t|\n/g,' ')).join('\t')).join('\n');
@@ -456,7 +543,7 @@ function sources(){
 
 function route(){ const h = location.hash.slice(1) || 'home'; $('#rail').classList.remove('open');
   if (h.startsWith('l-')) lesson(h.slice(2)); else if (h.startsWith('c-')) checkpoint(h.slice(2));
-  else if (h === 'review') review(); else if (h === 'test') test(); else if (h === 'sources') sources(); else { home(); rail(''); topnav('home'); } }
+  else if (h === 'plan') planView(); else if (h === 'review') review(); else if (h === 'test') test(); else if (h === 'sources') sources(); else { home(); rail(''); topnav('home'); } }
 let FS = 18; try { FS = +localStorage.getItem('teachme:fs') || 18; } catch (e) {}
 const setFS = v => { FS = Math.max(15, Math.min(24, v)); document.documentElement.style.setProperty('--fs', FS + 'px'); try { localStorage.setItem('teachme:fs', FS); } catch (e) {} };
 setFS(FS); $('#szm').onclick = () => setFS(FS - 1); $('#szp').onclick = () => setFS(FS + 1);

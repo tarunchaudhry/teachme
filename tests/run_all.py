@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""teachme test suite. Run: python3 tests/run_all.py [--shots DIR]
+"""teachme test suite. Run: python3 tests/run_all.py [--shots DIR] [--course path/to/course.json ...]
 
 1. Validator: every example course must be clean; deliberately broken copies must be rejected.
 2. Player (needs playwright + chromium): render every example, click through every step of every
@@ -18,10 +18,11 @@ def check(ok, msg):
     if not ok: fails.append(msg)
 
 EXAMPLES = sorted(glob.glob(os.path.join(SK, "examples", "*", "course.json")))
+EXTRA = [sys.argv[i + 1] for i, a in enumerate(sys.argv) if a == "--course"]  # extra local courses to test
 
 def validator_tests():
     print("Validator")
-    for p in EXAMPLES:
+    for p in EXAMPLES + EXTRA:
         c = json.load(open(p)); e, w = V.validate(c, os.path.join(os.path.dirname(p), "sources"))
         check(not e, f"{os.path.basename(os.path.dirname(p))} is clean ({len(e)} errors, {len(w)} warnings)")
     base = json.load(open(EXAMPLES[0])); sd = os.path.join(os.path.dirname(EXAMPLES[0]), "sources")
@@ -76,7 +77,7 @@ def player_tests(shots):
     tmp = tempfile.mkdtemp()
     with sync_playwright() as p:
         b = p.chromium.launch(**({"executable_path": exe} if exe else {}), args=["--no-sandbox"])
-        for cp in EXAMPLES:
+        for cp in EXAMPLES + EXTRA:
             name = os.path.basename(os.path.dirname(cp)); out = os.path.join(tmp, name + ".html")
             course = json.load(open(cp)); tpl = open(os.path.join(SK, "assets", "player.html")).read()
             data = json.dumps(course, ensure_ascii=False).replace("</", "<\\/")
@@ -109,6 +110,17 @@ def player_tests(shots):
                             if i < len(l["steps"]) - 1: pg.click('[data-nav="1"]'); pg.wait_for_timeout(120)
                         sw = pg.evaluate("document.documentElement.scrollWidth")
                         if sw > w: errs.append(f"sideways scroll {sw}px in {l['id']}")
+                    for mode in [{"mode":"today"},{"mode":"daily","minutes":120},{"mode":"daily","minutes":20},{"mode":"weekly","perWeek":2,"minutes":45,"retain":"year"},{"mode":"deadline","minutes":30,"deadline":"__D3__"},{"mode":"deadline","minutes":15,"deadline":"__D1__"}]:
+                        import datetime as _dt
+                        m = json.loads(json.dumps(mode).replace("__D3__", str(_dt.date.today()+_dt.timedelta(days=3))).replace("__D1__", str(_dt.date.today()+_dt.timedelta(days=1))))
+                        pg.evaluate("([k,m]) => { const S = JSON.parse(localStorage.getItem(k)||'{}'); S.pace = m; localStorage.setItem(k, JSON.stringify(S)); }", ["teachme:"+course["id"], m])
+                        pg.goto(url + "#home"); pg.goto(url + "#plan"); pg.reload(); pg.wait_for_timeout(250)
+                        n = len(pg.query_selector_all(".sess")); lessons_planned = len(pg.query_selector_all(".sess a[href^='#l-']"))
+                        if n == 0: errs.append(f"plan {m['mode']} has no sessions")
+                        if m == {"mode":"daily","minutes":120} and len(pg.query_selector_all(".sess")[0].query_selector_all("a[href^='#l-']")) < 2: errs.append("2h/day plan should fit several lessons in session one")
+                        if m["mode"] == "today" and not pg.query_selector(".callout"): errs.append("today plan missing the cramming note")
+                        if m.get("deadline") and "__D1__" not in json.dumps(mode) and lessons_planned == 0: errs.append("deadline plan placed no lessons")
+                        if shots and w == 390 and scheme == "light" and m["mode"] in ("daily","deadline"): pg.screenshot(path=f"{shots}/{name}-plan-{m['mode']}-{m.get('minutes')}.png", full_page=True)
                     for r in ["review", "test", "sources"] + [f"c-{c['id']}" for c in course.get("checkpoints", [])]:
                         pg.goto(url + "#" + r); pg.wait_for_timeout(200)
                     total = sum(len(l["steps"]) for l in course["lessons"])

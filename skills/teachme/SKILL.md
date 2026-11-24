@@ -7,7 +7,7 @@ description: Turns any topic, chapter, subject or course, plus the learner's own
 
 Build a short, sourced, interactive course a learner can finish fast and remember. Output is one self-contained web page: lessons with live diagrams and simulations, recall quizzes, a mastery gate, teach-back, a spaced-review deck, checkpoints, a 1-week test and a sources panel.
 
-Arguments: `/teachme <topic or request> [--lessons N] [--level beginner|intermediate|advanced] [--audience "..."] [--lang xx] [--no-web]`, plus any attached files or pasted links.
+Arguments: `/teachme <topic or request> [--pace "2h daily" | today | "3x a week" | "by 2026-12-15"] [--lessons N] [--level beginner|intermediate|advanced] [--audience "..."] [--lang xx] [--no-web]`, plus any attached files or pasted links.
 
 Read before building: `references/protocol.md` (phases, sizing), `references/schema.md` (the course.json contract), `references/authoring.md` (closed-book rules). A complete worked example (3 lessons, validator-clean) is in `examples/how-ai-works/`; copy its patterns. Scripts live in this skill's `scripts/` folder; run them with python3 using paths relative to this skill's base directory.
 
@@ -18,6 +18,7 @@ Keep a visible task list. Work in a fresh folder, e.g. `./teachme-<course-id>/` 
 ### 1. Intake and scope
 - Parse the request: topic, level, audience, language, lesson count, and every attached file or link.
 - Pick the size from the sizing table in protocol.md unless `--lessons` is given.
+- Set the learning pace. If the request doesn't say (no `--pace`, no "today", "daily", "by Friday" etc.), ask one question with these options: all today in one sitting; a set time every day (ask how many minutes, default 30); a few sessions a week; by a date (exam, interview). Also ask how long they need to remember it (a week, a month or two, a year or more) unless a date already implies it. Store the answer as `pace` (see protocol.md, Pacing). If no one can answer, use daily, 30 minutes, a month, and say so. The pace also shapes size: with "all today" and under 2 hours, keep the course short enough to finish.
 - If the request is truly ambiguous (e.g. "Python" could be a language or a snake; no level and the audience matters), ask one short question. Otherwise state the reading you took in one line and continue.
 - Big subjects (more than about 8 lessons): plan all modules, build only module 1 this run, and list the rest in `outline{}`. Say how to continue: run `/teachme continue <course-id>`.
 

@@ -36,3 +36,13 @@ Each lesson covers 1-5 objectives that fit in 20 minutes. If an objective needs 
 - **beginner**: more explain steps (3-4), fully worked example plus a faded one, concrete analogies first, plain words.
 - **intermediate**: 2-3 explain steps, one worked example, practice by simulation or faded steps.
 - **advanced**: 1-2 dense explain steps, skip to practice, harder retrieval (numeric, order, recall), comparisons and edge cases.
+
+## Pacing (the Plan tab)
+The player turns `pace` into a session plan, re-planned from today whenever the learner changes it. Each session: due reviews first (about 20% of the time, 5-15 min), then whole lessons that fit, checkpoints right after their lesson, the 1-week test a week after the first session (or the day before a deadline), then review-only sessions at growing gaps.
+| Learner says | pace |
+|---|---|
+| "teach me now", "today", "crash course" | `today` (one sitting, a break about every 50 min, follow-up reviews after) |
+| "2 hours a day", "30 min daily" | `daily`, minutes = that |
+| "weekends", "3 times a week" | `weekly`, perWeek, minutes |
+| "exam on the 15th", "interview Friday" | `deadline`, deadline date, minutes per day |
+How long it must last sets the review gaps (spacing ridgeline: the best gap is about 20-40% of a 1-week retention interval and 5-10% of a 1-year one): week → reviews at +1, +3, +6 days; month → +1, +4, +10, +24; year → +1, +7, +21, +60, +120. Cramming is allowed but always followed by reviews, and the plan says why.

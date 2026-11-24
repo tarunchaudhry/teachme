@@ -360,6 +360,13 @@ def validate(course, sources_dir=None, source_check=True):
                 quote_ok[(s.get("id"), q.get("id"))] = ok
                 if not ok: err(sw, f"quote {q.get('id')} not found verbatim in source text: \"{q.get('text', '')[:80]}\"")
     if source_check and not sources_dir: warn(C, "no --sources-dir given; quotes were not string-matched")
+    pace = course.get("pace")
+    if pace is not None:
+        if pace.get("mode") not in ("today", "daily", "weekly", "deadline"): err("pace", "mode must be today|daily|weekly|deadline")
+        if pace.get("mode") in ("daily", "weekly", "deadline") and not 10 <= (pace.get("minutes") or 0) <= 240: err("pace", "minutes must be 10-240")
+        if pace.get("mode") == "weekly" and not 1 <= (pace.get("perWeek") or 0) <= 7: err("pace", "perWeek must be 1-7")
+        if pace.get("mode") == "deadline" and not re.match(r"^\d{4}-\d{2}-\d{2}$", str(pace.get("deadline", ""))): err("pace", "deadline must be YYYY-MM-DD")
+        if pace.get("retain", "month") not in ("week", "month", "year"): err("pace", "retain must be week|month|year")
     lessons = course.get("lessons") or []
     lid = [l.get("id") for l in lessons]
     if len(lid) != len(set(lid)): err(C, "duplicate lesson ids")

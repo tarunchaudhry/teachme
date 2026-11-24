@@ -14,6 +14,7 @@ All ids are kebab-case (`a-z0-9-`). Quiz-item ids and flashcard ids **must** be 
   "language": "en",                       // BCP-47, used for Listen (Web Speech)
   "mastery": 0.8,                         // retrieval-quiz bar for "mastered"
   "desiredRetention": 0.9,                // FSRS target, 0.7-0.97
+  "pace": { "mode": "today|daily|weekly|deadline", "minutes": 30, "perWeek": 3, "deadline": "2026-12-15", "retain": "week|month|year" },  // default plan; learner can change it in the Plan tab
   "gaps": ["Things the sources did not cover, stated plainly"],
   "sources": [Source],
   "conceptMap": { "nodes": [{ "id", "label", "lesson"? }], "edges": [["from-id", "to-id"]] },  // must be acyclic; edge = prerequisite -> dependent
