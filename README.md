@@ -14,7 +14,8 @@
 - Lessons built on **RAPID-8**: problem hook, pretest, explanation with a live animated diagram, worked example, practice or a predict-then-run simulation, recall quiz with an 80% mastery gate, teach-back with a confidence check, spaced review.
 - **Spaced-review deck** (FSRS-style scheduler), mixed **checkpoints** every few lessons, and a **1-week test**.
 - **Sources panel**: every fact is tied to an exact quote, checked word for word by a script against the saved source text. Toy numbers are labelled.
-- Skip-ahead if the pretest shows you already know it; continue-anyway if the mastery gate blocks you; Listen (on-device speech); Anki export; works on phones.
+- Skip-ahead if the pretest shows you already know it; continue-anyway if the mastery gate blocks you; Listen (on-device speech); Anki export; a Plan tab that paces the course (all today, daily minutes, a few days a week, or by a date); text-size control; works on phones.
+- No video: diagrams are animated SVG built from the lesson data, so every label can be checked.
 
 ## How it is built
 1. Intake and sizing (one concept → 1 lesson; topic → 3-6; subject → modules, one module per run).
@@ -30,5 +31,12 @@
 - Web pages fetched through a summarising tool may be saved as excerpts rather than full text; the course lists this under known gaps.
 - Progress and the review deck live in one browser on one device.
 - Not for safety-critical or regulated content without an expert, weekly-changing topics, hands-on motor skills, or contested values questions.
+
+## Tests
+```
+python3 tests/run_all.py            # checker mutation tests + every step at laptop/phone, light/dark, contrast, pacing
+python3 tests/test_ui.py            # presses every control: quizzes, mastery gate, sims, diagrams animating, review deck, plan, phone menu, reduced motion
+```
+Both need Playwright and a Chromium for the browser parts.
 
 Requires Python 3 in the session. Optional: `pdftotext` or `pypdf`, `python-docx`, `python-pptx`, `ebooklib` for extracting learner files.

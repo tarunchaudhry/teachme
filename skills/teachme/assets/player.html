@@ -208,9 +208,9 @@ function SceneView(fig){
   svg.innerHTML = '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--soft)"/></marker></defs><g class="grp"></g><g class="edges"></g><g class="nodes"></g>';
   const gN = svg.querySelector('.nodes'), gE = svg.querySelector('.edges'), gG = svg.querySelector('.grp');
   const els = {}; let scene = null, geo = {};
-  function size(n, Wd){ const fs = Wd < 520 ? 13 : 15; const lines = String(n.label).split('\n'); const w = n.w ? n.w/100*Wd : Math.max(...lines.map(x=>x.length))*fs*0.56 + 28; return {w:Math.max(n.shape==='circle'?56:70,w), h:(n.h?n.h/100*svg.clientHeight:lines.length*fs*1.25+20), fs, lines}; }
+  function size(n, Wd, f=1){ const fs = (Wd < 520 ? 13 : 15) * Math.max(f, .85); const lines = String(n.label).split('\n'); const w = n.w ? n.w/100*Wd : Math.max(...lines.map(x=>x.length))*fs*0.56 + 28*f; const W2 = Math.max((n.shape==='circle'?56:70)*f,w), H2 = n.h?n.h/100*svg.clientHeight:lines.length*fs*1.25+20*f; if (n.shape==='circle') { const d = Math.max(W2,H2); return {w:d, h:d, fs, lines}; } return {w:W2, h:H2, fs, lines}; }
   function shape(n, z){ const f = TONE[n.tone||'main'], w=z.w, h=z.h, fill=`color-mix(in srgb, ${f} 16%, var(--bg))`;
-    if (n.shape === 'circle') { const r = Math.max(w,h)/2; z.w = z.h = 2*r; return `<circle r="${r}" fill="${fill}" stroke="${f}" stroke-width="2.5"/>`; }
+    if (n.shape === 'circle') { const r = Math.max(w,h)/2; return `<circle r="${r}" fill="${fill}" stroke="${f}" stroke-width="2.5"/>`; }
     if (n.shape === 'diamond') return `<path d="M0 ${-h/2-8}L${w/2+10} 0L0 ${h/2+8}L${-w/2-10} 0Z" fill="${fill}" stroke="${f}" stroke-width="2.5"/>`;
     if (n.shape === 'cylinder') return `<path d="M${-w/2} ${-h/2+6}v${h-12}a${w/2} 7 0 0 0 ${w} 0v${-(h-12)}" fill="${fill}" stroke="${f}" stroke-width="2.5"/><ellipse cy="${-h/2+6}" rx="${w/2}" ry="7" fill="${fill}" stroke="${f}" stroke-width="2.5"/>`;
     if (n.shape === 'text') return '';
@@ -218,19 +218,25 @@ function SceneView(fig){
   function edgePt(a, b){ const dx=b.x-a.x, dy=b.y-a.y; if(!dx&&!dy) return {x:a.x,y:a.y}; const sx=(a.w/2+4)/Math.abs(dx||1e-9), sy=(a.h/2+4)/Math.abs(dy||1e-9), s=Math.min(sx,sy,1); return {x:a.x+dx*s,y:a.y+dy*s}; }
   function draw(){
     if (!scene) return; const Wd = svg.clientWidth; if (!Wd) return;
-    const tr = Wd < 520 && scene.transpose !== false; if (tr && fig.style.minHeight !== '440px') fig.style.minHeight = '440px';
+    const tr = Wd < 420 && scene.transpose !== false; if (tr && fig.style.minHeight !== '440px') fig.style.minHeight = '440px';
     const Ht = svg.clientHeight; const T = n => tr ? Object.assign({}, n, {x:n.y, y:n.x, w:n.h, h:n.w}) : n;
     const sc = Object.assign({}, scene, {nodes:(scene.nodes||[]).map(n => tr ? Object.assign({}, n, {x:n.y, y:n.x}) : n), groups:(scene.groups||[]).map(T)});
-    const zs = sc.nodes.map(n => size(n, Wd));
-    const pad = Math.min(Wd*0.3, Math.max(46, ...zs.map(z => z.w/2 + 12))), padY = Math.min(Ht*0.3, Math.max(36, ...zs.map(z => z.h/2 + 14)));
-    const X = v => pad + v/100*(Wd-2*pad), Y = v => padY + v/100*(Ht-2*padY);
-    gG.innerHTML = sc.groups.map(g => `<rect x="${X(g.x)}" y="${Y(g.y)}" width="${g.w/100*(Wd-2*pad)}" height="${g.h/100*(Ht-2*padY)}" rx="14" fill="color-mix(in srgb, ${TONE[g.tone||'muted']} 9%, transparent)" stroke="${TONE[g.tone||'muted']}" stroke-dasharray="5 5"/><text x="${X(g.x)+10}" y="${Y(g.y)+20}" font-size="13" fill="var(--soft)">${esc(g.label||'')}</text>`).join('');
+    let F = 1, zs, pad, padY, X, Y;
+    for (let it = 0; it < 4; it++) {
+      zs = sc.nodes.map(n => size(n, Wd, F));
+      pad = Math.min(Wd*0.3, Math.max(40, ...zs.map(z => z.w/2 + 10))); padY = Math.min(Ht*0.3, Math.max(30, ...zs.map(z => z.h/2 + 12)) + ((sc.groups||[]).length ? 18 : 0));
+      X = v => pad + v/100*(Wd-2*pad); Y = v => padY + v/100*(Ht-2*padY);
+      let r = 1; sc.nodes.forEach((a,i) => sc.nodes.forEach((b,j) => { if (j <= i) return;
+        const ox = Math.abs(X(a.x)-X(b.x)) / ((zs[i].w+zs[j].w)/2 + 6), oy = Math.abs(Y(a.y)-Y(b.y)) / ((zs[i].h+zs[j].h)/2 + 6); r = Math.min(r, Math.max(ox, oy)); }));
+      if (r >= 1 || F <= .6) break; F = Math.max(.6, F * Math.max(r, .8));
+    }
+    gG.innerHTML = sc.groups.map(g => `<rect x="${X(g.x)}" y="${Y(g.y)}" width="${g.w/100*(Wd-2*pad)}" height="${g.h/100*(Ht-2*padY)}" rx="14" fill="color-mix(in srgb, ${TONE[g.tone||'muted']} 9%, transparent)" stroke="${TONE[g.tone||'muted']}" stroke-dasharray="5 5"/><text x="${X(g.x)+4}" y="${Y(g.y)-6}" font-size="13" fill="var(--soft)">${esc(g.label||'')}</text>`).join('');
     const seen = new Set(); geo = {};
     for (const n of sc.nodes) {
-      seen.add(n.id); const z = size(n, Wd); const body = shape(n, z); const x = X(n.x), y = Y(n.y); geo[n.id] = {x,y,w:z.w,h:z.h};
+      seen.add(n.id); const z = size(n, Wd, F); const body = shape(n, z); const x = X(n.x), y = Y(n.y); geo[n.id] = {x,y,w:z.w,h:z.h};
       const txt = z.lines.map((t,i) => `<text text-anchor="middle" dy="${(i-(z.lines.length-1)/2)*z.fs*1.25+z.fs*0.35}" font-size="${z.fs}" font-weight="${n.tone==='muted'?400:700}" fill="var(--ink)">${esc(t)}</text>`).join('');
       let g = els[n.id];
-      if (!g) { g = document.createElementNS(svgNS,'g'); g.setAttribute('class','n'); g.style.opacity = 0; g.style.transform = `translate(${x}px,${y}px) scale(.85)`; gN.appendChild(g); els[n.id] = g; requestAnimationFrame(()=>requestAnimationFrame(()=>{ g.style.opacity = 1; g.style.transform = `translate(${x}px,${y}px)`; })); }
+      if (!g) { g = document.createElementNS(svgNS,'g'); g.setAttribute('class','n'); g.dataset.id = n.id; g.style.opacity = 0; g.style.transform = `translate(${x}px,${y}px) scale(.85)`; gN.appendChild(g); els[n.id] = g; requestAnimationFrame(()=>requestAnimationFrame(()=>{ g.style.opacity = 1; g.style.transform = `translate(${x}px,${y}px)`; })); }
       else { g.style.opacity = 1; g.style.transform = `translate(${x}px,${y}px)`; }
       g.innerHTML = body + txt;
     }
@@ -241,7 +247,9 @@ function SceneView(fig){
         const p = edgePt(a,b), q = edgePt(b,a), id = 'p'+i+Math.random().toString(36).slice(2,6);
         const mx = (p.x+q.x)/2, my = (p.y+q.y)/2 - (e.curve ? 40 : 0), d = e.curve ? `M${p.x} ${p.y}Q${mx} ${my} ${q.x} ${q.y}` : `M${p.x} ${p.y}L${q.x} ${q.y}`;
         const pk = e.flow ? `<circle class="pk" r="6" fill="var(--amber)"><animateMotion dur="${e.speed||1.8}s" repeatCount="indefinite"><mpath href="#${id}"/></animateMotion></circle>` : '';
-        return `<path id="${id}" d="${d}" fill="none" stroke="var(--soft)" stroke-width="2" ${e.dashed?'stroke-dasharray="6 5"':''} marker-end="url(#ah)"/>${pk}` + (e.label ? `<text x="${mx}" y="${(p.y+q.y)/2 - (e.curve?24:8)}" text-anchor="middle" font-size="13" fill="var(--soft)">${esc(e.label)}</text>` : ''); }).join('');
+        return `<path id="${id}" d="${d}" fill="none" stroke="var(--soft)" stroke-width="2" ${e.dashed?'stroke-dasharray="6 5"':''} marker-end="url(#ah)"/>${pk}` + (e.label ? (() => { const dx = q.x-p.x, dy = q.y-p.y, len = Math.hypot(dx,dy)||1; let nx = -dy/len, ny = dx/len; if (ny > 0 || (Math.abs(ny) < .2 && nx < 0)) { nx = -nx; ny = -ny; }
+          const t = e.curve ? .5 : .4, off = e.curve ? 30 : 12, lx = p.x + dx*t + nx*off, ly = p.y + dy*t - (e.curve?20:0) + ny*off, anc = Math.abs(nx) > .8 ? (nx > 0 ? 'start' : 'end') : 'middle';
+          return `<text x="${lx}" y="${ly + 4}" text-anchor="${anc}" font-size="13" fill="var(--soft)">${esc(e.label)}</text>`; })() : ''); }).join('');
       gE.style.opacity = 1; }, scene === null ? 0 : 520);
   }
   const ro = new ResizeObserver(draw); ro.observe(fig);
