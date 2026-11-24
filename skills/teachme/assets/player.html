@@ -5,37 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>__TITLE__</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
 <style>
-/* VOICE everyday learning: calm, clear, encouraging, never cute
-   IDEA a highlighted study notebook: cobalt cover band, white pages, yellow highlighter on what matters
+/* VOICE everyday learning: calm, unhurried, easy on the eyes for long sessions
+   IDEA a field notebook: warm paper, moss-green ink, an amber highlighter on what matters
    PICTURE the lesson's live diagram (keyed SVG scene) or the course concept map, large
-   COLOUR white page, ink #14171f, cobalt #1f4fd8 cover, highlighter #ffd43b, coral #ff6b4a for misses; night #0e1220
-   TYPE Outfit 700 display + Atkinson Hyperlegible text (built for readability)
-   LAYOUT laptop: lesson list rail | picture beside text; phone: title, picture, text, sticky step bar */
-:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0e1220);--ink:light-dark(#14171f,#e8ebf5);--soft:light-dark(#5a6070,#a3aabd);--line:light-dark(#e3e6ee,#262c40);--panel:light-dark(#f4f6fb,#161b2e);--cobalt:light-dark(#1f4fd8,#5b84ff);--cover:light-dark(#1f4fd8,#16205a);--hl:light-dark(#ffe66b,#6b5a00);--hlink:light-dark(#ffd43b,#ffd43b);--ok:light-dark(#11865a,#43d19a);--miss:light-dark(#d9432a,#ff7a5e);--onc:#ffffff}
+   COLOUR paper #f7f4ee, ink #2b2a26, moss #3d6a4b, highlighter #f3d675, brick #a9442a for misses; night #161916 with warm ink #e3dfd5
+   TYPE Fraunces display, Literata for reading, Atkinson Hyperlegible for controls and labels
+   LAYOUT laptop: lesson rail | picture beside text; phone: title, picture, text, sticky step bar */
+:root{color-scheme:light dark;--fs:18px;--bg:light-dark(#f7f4ee,#161916);--ink:light-dark(#2b2a26,#e3dfd5);--soft:light-dark(#625e55,#a6a397);--line:light-dark(#e2ddd2,#2c312b);--panel:light-dark(#eeebe2,#1e231e);--card:light-dark(#fffdf9,#1b1f1b);--pri:light-dark(#3d6a4b,#94c4a0);--prid:light-dark(#2f5a3c,#a9d3b3);--cover:light-dark(#f7f4ee,#161916);--hl:light-dark(#f6e3a1,#4d4220);--hlink:light-dark(#e9bf3f,#d9b24a);--amber:light-dark(#b9801a,#e0b45a);--ok:light-dark(#2f7a4c,#7fcf98);--miss:light-dark(#a9442a,#ee8a6c);--onc:light-dark(#fffdf9,#13160f);--ui:"Atkinson Hyperlegible",system-ui,sans-serif;--read:Literata,Georgia,serif;--disp:Fraunces,Georgia,serif}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:17px/1.6 "Atkinson Hyperlegible",system-ui,sans-serif;overflow-x:clip}
-h1,h2,h3{font-family:Outfit,system-ui,sans-serif;line-height:1.08;letter-spacing:-.02em;text-wrap:balance;margin:0 0 .4em}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--ui);overflow-x:clip;-webkit-font-smoothing:antialiased}
+.body,.fb,.card p,.hero p,.flash,.we{font-family:var(--read);font-size:var(--fs);line-height:1.72}
+.body{max-width:66ch}
+h1,h2,h3{font-family:var(--disp);font-weight:650;line-height:1.1;letter-spacing:-.01em;text-wrap:balance;margin:0 0 .4em}
 h1{font-size:clamp(30px,4.4vw,48px)}h2{font-size:clamp(24px,3vw,32px)}h3{font-size:20px}
-a{color:var(--cobalt)}
-button,.btn{font:inherit;font-size:16px;min-height:44px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
-button:hover{border-color:var(--cobalt)}
+a{color:var(--pri)}
+button,.btn{font:inherit;font-family:var(--ui);font-size:16px;min-height:44px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--pri)}
 button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--hlink);outline-offset:2px}
-.pri{background:var(--cobalt);border-color:var(--cobalt);color:var(--onc);font-weight:700}
-.ghost{border-color:transparent;background:transparent;color:var(--cobalt)}
+.pri{background:var(--pri);border-color:var(--pri);color:var(--onc);font-weight:700}
+.pri:hover{background:var(--prid);border-color:var(--prid)}
+.sz{min-width:44px;padding:6px 8px;font-weight:700}
+.ghost{border-color:transparent;background:transparent;color:var(--pri)}
 input[type=text],input[type=number],textarea{font:inherit;font-size:16px;width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
 textarea{min-height:96px}
-input[type=range]{width:100%;accent-color:var(--cobalt);height:32px}
-mark{background:var(--hl);color:inherit;padding:0 .15em;border-radius:3px}
+input[type=range]{width:100%;accent-color:var(--pri);height:32px}
+mark{background:linear-gradient(transparent 12%,var(--hl) 12%,var(--hl) 88%,transparent 88%);color:inherit;padding:0 .12em}
 code{background:var(--panel);padding:.1em .35em;border-radius:5px;font-size:.92em;overflow-wrap:anywhere}
-.cover{background:var(--cover);color:var(--onc);padding:14px max(4vw,16px);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.cover a{color:var(--onc);text-decoration:none;font-family:Outfit,sans-serif;font-weight:700;font-size:19px}
+.cover{background:var(--cover);color:var(--ink);border-bottom:1px solid var(--line);padding:12px max(4vw,16px);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.cover a{color:var(--pri);text-decoration:none;font-family:var(--disp);font-weight:700;font-size:19px}
 .cover nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
-.cover nav a{font-family:inherit;font-weight:400;font-size:15px;padding:8px 12px;border-radius:999px;background:color-mix(in srgb,#fff 14%,transparent)}
-.cover nav a.on{background:var(--hlink);color:#14171f}
+.cover nav a{font-family:var(--ui);font-weight:400;font-size:15px;color:var(--ink);padding:8px 12px;border-radius:999px;background:transparent}
+.cover nav a:hover{background:var(--panel)}
+.cover nav a.on{background:var(--hl);color:var(--ink);font-weight:700}
 .wrap{display:grid;grid-template-columns:minmax(0,270px) minmax(0,1fr);max-width:1320px;margin:0 auto}
 .rail{border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;align-self:start;max-height:100vh;overflow:auto}
 .rail h4{margin:16px 0 6px;font-size:14px;color:var(--soft);font-weight:700}
@@ -43,12 +48,12 @@ code{background:var(--panel);padding:.1em .35em;border-radius:5px;font-size:.92e
 .rail a.on{background:var(--panel);font-weight:700}
 .rail a.lock{color:var(--soft)}
 .dot{flex:none;width:12px;height:12px;border-radius:50%;border:2px solid var(--soft)}
-.dot.go{border-color:var(--cobalt)}.dot.ok{background:var(--ok);border-color:var(--ok)}.dot.half{background:linear-gradient(90deg,var(--hlink) 50%,transparent 50%);border-color:#c9a400}
+.dot.go{border-color:var(--pri)}.dot.ok{background:var(--ok);border-color:var(--ok)}.dot.half{background:linear-gradient(90deg,var(--hlink) 50%,transparent 50%);border-color:#c9a400}
 main{padding:24px max(3vw,16px) 120px}
 .menu{display:none}
 .phases{display:flex;gap:4px;margin:0 0 18px;flex-wrap:wrap}
 .ph{flex:1 1 70px;font-size:13px;color:var(--soft);border-top:4px solid var(--line);padding-top:6px}
-.ph.done{border-color:color-mix(in srgb,var(--cobalt) 45%,var(--line))}.ph.on{border-color:var(--cobalt);color:var(--ink);font-weight:700}
+.ph.done{border-color:color-mix(in srgb,var(--pri) 45%,var(--line))}.ph.on{border-color:var(--pri);color:var(--ink);font-weight:700}
 .stage{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
 .stage.solo{grid-template-columns:minmax(0,760px)}
 .fig{position:relative;min-height:340px;background:var(--panel);border-radius:16px;overflow:hidden}
@@ -56,15 +61,15 @@ main{padding:24px max(3vw,16px) 120px}
 .figwrap{position:sticky;top:16px}
 .cap{font-size:14px;color:var(--soft);margin:8px 2px 0}
 .body p{margin:0 0 .8em}.body ul,.body ol{padding-left:1.2em;margin:0 0 .8em}
-.kicker{font-size:14px;color:var(--cobalt);font-weight:700;margin-bottom:4px}
-.callout{background:var(--hl);border-radius:12px;padding:12px 16px;margin:12px 0}
+.kicker{font-size:14px;color:var(--pri);font-weight:700;margin-bottom:4px}
+.callout{background:color-mix(in srgb,var(--hl) 70%,var(--card));border-left:4px solid var(--hlink);border-radius:12px;padding:12px 16px;margin:12px 0}
 .note{font-size:14px;color:var(--soft)}
 .badge{display:inline-block;font-size:13px;padding:2px 8px;border-radius:999px;background:var(--panel);color:var(--soft);margin-right:6px}
 .badge.ill{background:var(--hl);color:var(--ink)}
-.card{border:1.5px solid var(--line);border-radius:14px;padding:16px;margin:14px 0;background:var(--bg)}
+.card{border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0;background:var(--card)}
 .card.q h3{font-size:18px;font-family:inherit;letter-spacing:0;font-weight:700}
 .opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;margin:6px 0;line-height:1.4}
-.opt.sel{border-color:var(--cobalt);background:color-mix(in srgb,var(--cobalt) 8%,var(--bg))}
+.opt.sel{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 8%,var(--bg))}
 .opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--bg))}
 .opt.wrong{border-color:var(--miss);background:color-mix(in srgb,var(--miss) 10%,var(--bg))}
 .fb{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--panel)}
@@ -72,16 +77,16 @@ main{padding:24px max(3vw,16px) 120px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .ord{display:flex;gap:8px;align-items:center;margin:6px 0;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px}
 .ord span{flex:1}.ord button{min-height:36px;padding:2px 10px}
-.we li{margin:8px 0}.sub{font-weight:700;color:var(--cobalt)}
+.we li{margin:8px 0}.sub{font-weight:700;color:var(--pri)}
 .simout{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:10px;margin:10px 0}
 .simout div{background:var(--panel);border-radius:10px;padding:10px}
-.simout b{display:block;font-family:Outfit,sans-serif;font-size:clamp(22px,3vw,30px);white-space:nowrap}
-.bar{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px max(4vw,16px)}
+.simout b{display:block;font-family:var(--disp);font-size:clamp(22px,3vw,30px);white-space:nowrap}
+.bar{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px max(4vw,16px)}
 .bar .row{max-width:1100px;margin:0 auto;justify-content:space-between}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:28px;align-items:center;margin-bottom:28px}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(8em,1fr));gap:10px;margin:16px 0}
 .stats div{background:var(--panel);border-radius:12px;padding:10px 12px}
-.stats b{display:block;font-family:Outfit,sans-serif;font-size:26px}
+.stats b{display:block;font-family:var(--disp);font-size:26px}
 .mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
 .mod{background:var(--panel);border-radius:14px;padding:16px}
 .mod a{display:flex;gap:10px;align-items:center;padding:8px 4px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line)}
@@ -92,17 +97,18 @@ main{padding:24px max(3vw,16px) 120px}
 .scroll{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
 blockquote{margin:6px 0;padding:6px 12px;border-left:4px solid var(--hlink);background:var(--panel);border-radius:0 8px 8px 0}
-svg text{font-family:"Atkinson Hyperlegible",system-ui,sans-serif;paint-order:stroke;stroke:var(--panel);stroke-width:4px}
+svg text{font-family:var(--ui);paint-order:stroke;stroke:var(--panel);stroke-width:4px}
 .n{transition:transform .6s cubic-bezier(.3,.7,.2,1),opacity .4s}
 .edges{transition:opacity .3s}
 @media(prefers-reduced-motion:reduce){.n,.edges{transition:none}.pk{display:none}}
-@media(max-width:900px){.stage,.hero{grid-template-columns:minmax(0,1fr)}.figwrap{position:static}}
-@media(max-width:600px){.phases{flex-wrap:nowrap}.ph{flex:1 1 0;font-size:0}.ph.on{flex:3 1 0;font-size:13px}}
+@media(max-width:900px){.stage,.hero{grid-template-columns:minmax(0,1fr)}.figwrap{position:static}.stage.sim .figwrap{order:2}}
+@media(max-width:600px){.cover{display:grid;grid-template-columns:auto minmax(0,1fr) auto;row-gap:6px;padding-block:8px}.cover nav{grid-column:1/-1;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.cover nav a{flex:none}.szg{gap:0}.sz{min-width:40px}
+.phases{flex-wrap:nowrap}.ph{flex:1 1 0;font-size:0}.ph.on{flex:3 1 0;font-size:13px}}
 @media(max-width:760px){.wrap{grid-template-columns:minmax(0,1fr)}.rail{display:none;position:fixed;inset:0;z-index:20;background:var(--bg);max-height:none}.rail.open{display:block}.menu{display:inline-flex}.fig{min-height:260px}}
 </style>
 </head>
 <body>
-<header class="cover"><button class="menu ghost" id="menuBtn" style="color:#fff">Lessons</button><a href="#home" id="brand"></a><nav id="topnav"></nav></header>
+<header class="cover"><button class="menu ghost" id="menuBtn">Lessons</button><a href="#home" id="brand"></a><nav id="topnav"></nav><div class="row szg" role="group" aria-label="Text size"><button class="ghost sz" id="szm" aria-label="Smaller text">A−</button><button class="ghost sz" id="szp" aria-label="Larger text">A+</button></div></header>
 <div class="wrap"><aside class="rail" id="rail"></aside><main id="main"></main></div>
 <script type="application/json" id="course">/*__COURSE_JSON__*/</script>
 <script>
@@ -189,7 +195,7 @@ const allCards = () => lessons.flatMap(l => (l.flashcards||[]).map(f => Object.a
 const dueCards = () => allCards().filter(f => S.cards[f.id] && S.cards[f.id].due <= Date.now());
 
 /* ---------- scene engine: keyed snapshots, enter/update/exit ---------- */
-const TONE = {main:'var(--cobalt)',accent:'#e0a800',muted:'var(--soft)',ok:'var(--ok)',warn:'var(--miss)'};
+const TONE = {main:'var(--pri)',accent:'var(--amber)',muted:'var(--soft)',ok:'var(--ok)',warn:'var(--miss)'};
 function SceneView(fig){
   const svgNS = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(svgNS,'svg'); fig.appendChild(svg);
@@ -228,7 +234,7 @@ function SceneView(fig){
       gE.innerHTML = (sc.edges||[]).map((e,i) => { const a = geo[e.from], b = geo[e.to]; if (!a||!b) return '';
         const p = edgePt(a,b), q = edgePt(b,a), id = 'p'+i+Math.random().toString(36).slice(2,6);
         const mx = (p.x+q.x)/2, my = (p.y+q.y)/2 - (e.curve ? 40 : 0), d = e.curve ? `M${p.x} ${p.y}Q${mx} ${my} ${q.x} ${q.y}` : `M${p.x} ${p.y}L${q.x} ${q.y}`;
-        const pk = e.flow ? `<circle class="pk" r="6" fill="#e0a800"><animateMotion dur="${e.speed||1.8}s" repeatCount="indefinite"><mpath href="#${id}"/></animateMotion></circle>` : '';
+        const pk = e.flow ? `<circle class="pk" r="6" fill="var(--amber)"><animateMotion dur="${e.speed||1.8}s" repeatCount="indefinite"><mpath href="#${id}"/></animateMotion></circle>` : '';
         return `<path id="${id}" d="${d}" fill="none" stroke="var(--soft)" stroke-width="2" ${e.dashed?'stroke-dasharray="6 5"':''} marker-end="url(#ah)"/>${pk}` + (e.label ? `<text x="${mx}" y="${(p.y+q.y)/2 - (e.curve?24:8)}" text-anchor="middle" font-size="13" fill="var(--soft)">${esc(e.label)}</text>` : ''); }).join('');
       gE.style.opacity = 1; }, scene === null ? 0 : 520);
   }
@@ -331,7 +337,7 @@ function lesson(id){
   const phIdx = PH.indexOf(step.phase);
   let h = `<div class="phases">${PH.map((p,i)=>`<div class="ph ${i<phIdx?'done':i===phIdx?'on':''}">${PHL[p]}</div>`).join('')}</div>`;
   h += `<div class="kicker">${esc(l.title)} · step ${st.step+1} of ${l.steps.length}</div><h2>${esc(step.title)}</h2>`;
-  h += `<div class="stage ${step.scene||step.simulation?'':'solo'}">`;
+  h += `<div class="stage ${step.scene||step.simulation?'':'solo'} ${step.simulation&&!step.scene?'sim':''}">`;
   if (step.scene || step.simulation) h += `<div class="figwrap">${step.scene?`<div class="fig" id="fig"></div><p class="cap">${inline(step.scene.caption||'')}</p>`:''}${step.simulation?simHTML(step.simulation, st, id+step.id):''}</div>`;
   h += `<div><div class="body">${md(step.body||[])}</div>`;
   if (step.callout) h += `<div class="callout">${inline(step.callout)}</div>`;
@@ -364,7 +370,7 @@ function simHTML(sim, st, key){ const r = (st.sim ||= {})[key] ||= {vals:{}, pre
   if (sim.predict && r.predicted == null) return h + `<p><b>Predict first:</b> ${inline(sim.predict.prompt)}</p>${sim.predict.options.map((o,i)=>`<button class="opt" data-pred="${i}"><span>${String.fromCharCode(65+i)}.</span><span>${inline(o)}</span></button>`).join('')}</div>`;
   if (sim.predict) { const ok = r.predicted === sim.predict.answer; h += `<div class="fb"><b class="${ok?'ok':'no'}">${ok?'Your prediction was right.':'Your prediction was off. Move the sliders to see why.'}</b> ${inline(sim.predict.explanation||'')}</div>`; }
   h += sim.params.map(p => `<label style="display:block;margin-top:10px">${esc(p.label)}: <b id="v-${p.id}">${fmt(r.vals[p.id])}</b>${p.unit?' '+esc(p.unit):''}<input type="range" data-p="${p.id}" min="${p.min}" max="${p.max}" step="${p.step||(p.max-p.min)/100}" value="${r.vals[p.id]}"></label>`).join('');
-  h += `<div class="simout" id="simout"></div>${sim.chart?`<div class="fig" id="simchart" style="min-height:220px"></div><div class="row note" style="margin-top:6px">${sim.chart.y.map((y,k)=>`<span><span style="display:inline-block;width:18px;height:4px;border-radius:2px;vertical-align:middle;background:${['var(--cobalt)','#e0a800','var(--miss)'][k%3]}"></span> ${esc(sim.outputs.find(o=>o.id===y)?.label)}</span>`).join('')}</div>`:''}${sim.note?`<p class="note">${inline(sim.note)}</p>`:''}<p class="note">Every number here is computed from the formula, not typed in.</p></div>`; return h; }
+  h += `<div class="simout" id="simout"></div>${sim.chart?`<div class="fig" id="simchart" style="min-height:220px"></div><div class="row note" style="margin-top:6px">${sim.chart.y.map((y,k)=>`<span><span style="display:inline-block;width:18px;height:4px;border-radius:2px;vertical-align:middle;background:${['var(--pri)','var(--amber)','var(--miss)'][k%3]}"></span> ${esc(sim.outputs.find(o=>o.id===y)?.label)}</span>`).join('')}</div>`:''}${sim.note?`<p class="note">${inline(sim.note)}</p>`:''}<p class="note">Every number here is computed from the formula, not typed in.</p></div>`; return h; }
 function bindSim(sim, st, key){ const r = st.sim[key];
   $('#main').querySelectorAll('[data-pred]').forEach(b => b.onclick = () => { r.predicted = +b.dataset.pred; save(); lesson(S.last); });
   const out = $('#simout'); if (!out) return;
@@ -374,7 +380,7 @@ function bindSim(sim, st, key){ const r = st.sim[key];
   function chart(){ if (!svg || !svg.clientWidth) return; const p = sim.params.find(x=>x.id===sim.chart.x), Wd = svg.clientWidth, Ht = svg.clientHeight, m = {l:52,r:16,t:18,b:40};
     const xs = Array.from({length:60}, (_,i) => p.min + (p.max-p.min)*i/59); const ser = sim.chart.y.map(oid => xs.map(x => calc(Object.assign({}, r.vals, {[p.id]:x}))[oid]));
     const all = ser.flat().filter(isFinite); let lo = Math.min(0, ...all), hi = Math.max(...all); if (hi === lo) hi = lo + 1;
-    const X = x => m.l + (x-p.min)/(p.max-p.min)*(Wd-m.l-m.r), Y = y => Ht-m.b - (y-lo)/(hi-lo)*(Ht-m.t-m.b); const cols = ['var(--cobalt)','#e0a800','var(--miss)'];
+    const X = x => m.l + (x-p.min)/(p.max-p.min)*(Wd-m.l-m.r), Y = y => Ht-m.b - (y-lo)/(hi-lo)*(Ht-m.t-m.b); const cols = ['var(--pri)','var(--amber)','var(--miss)'];
     svg.innerHTML = `<line x1="${m.l}" x2="${Wd-m.r}" y1="${Y(lo)}" y2="${Y(lo)}" stroke="var(--line)"/><text x="${m.l}" y="${Ht-12}" font-size="13" fill="var(--soft)">${esc(p.label)} →</text><text x="${m.l-6}" y="${Y(hi)+4}" text-anchor="end" font-size="13" fill="var(--soft)">${fmt(hi)}</text><text x="${m.l-6}" y="${Y(lo)+4}" text-anchor="end" font-size="13" fill="var(--soft)">${fmt(lo)}</text>`
       + ser.map((s,k) => `<path d="${s.map((y,i)=>(i?'L':'M')+X(xs[i])+' '+Y(isFinite(y)?y:lo)).join('')}" fill="none" stroke="${cols[k%3]}" stroke-width="3"/>`).join('')
       + `<line x1="${X(r.vals[p.id])}" x2="${X(r.vals[p.id])}" y1="${m.t}" y2="${Ht-m.b}" stroke="var(--ink)" stroke-dasharray="4 4"/>`; }
@@ -451,6 +457,9 @@ function sources(){
 function route(){ const h = location.hash.slice(1) || 'home'; $('#rail').classList.remove('open');
   if (h.startsWith('l-')) lesson(h.slice(2)); else if (h.startsWith('c-')) checkpoint(h.slice(2));
   else if (h === 'review') review(); else if (h === 'test') test(); else if (h === 'sources') sources(); else { home(); rail(''); topnav('home'); } }
+let FS = 18; try { FS = +localStorage.getItem('teachme:fs') || 18; } catch (e) {}
+const setFS = v => { FS = Math.max(15, Math.min(24, v)); document.documentElement.style.setProperty('--fs', FS + 'px'); try { localStorage.setItem('teachme:fs', FS); } catch (e) {} };
+setFS(FS); $('#szm').onclick = () => setFS(FS - 1); $('#szp').onclick = () => setFS(FS + 1);
 $('#brand').textContent = C.title; document.title = C.title;
 $('#menuBtn').onclick = () => $('#rail').classList.add('open');
 addEventListener('hashchange', route);
